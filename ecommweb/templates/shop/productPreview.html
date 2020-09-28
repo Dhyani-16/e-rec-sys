@@ -1,0 +1,584 @@
+{% load static %}
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Product Preview</title>
+    <link rel="stylesheet" href="{% static 'css/productPreview.css' %}">
+</head>
+
+<body>
+
+    <div class="container-fluid mt-5">
+
+        <h1 class="text-secondary">Product Preview</h1>
+        <br>
+        <div class="row">
+
+            <div class="col-md-5">
+                <div class="w3-container">
+                    <div class="w3-content w3-display-container">
+                        <img class="mySlides" src="{% static 'images/girls_pink_shoes.jpeg' %}" style="width:60%">
+                        <img class="mySlides" src="{% static 'images/2.jpeg' %}" style="width:60%">
+                        <img class="mySlides" src="{% static 'images/3.jpeg' %}" style="width:60%">
+
+                        <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle"
+                            style="width:80%"></div>
+                        <div class="row">
+                            <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+                            <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+                        </div>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white"
+                            onclick="currentDiv(1)"></span>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white"
+                            onclick="currentDiv(2)"></span>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white"
+                            onclick="currentDiv(3)"></span>
+                    </div>
+                </div>
+                <!--<img class="productimage" src="./girls_pink_shoes.jpeg">-->
+                <button id="wishbtn" onclick="addtowishlist()"><i class='fas fa-heart' id="wishlist"
+                        style='font-size:24px;display: inline;'></i></button>
+
+                <!--Buy Now & Add to Cart Button-->
+                <button class="button mt-5" onclick="deliveryDetails()" style="vertical-align:middle"
+                    value="Add a new row"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span><a href="#"
+                            id="button">Buy Now </a></span></button>
+                <button class="button mt-5" style="vertical-align:middle"><i class="fa fa-shopping-cart"></i><span>Add
+                        To Cart </span></button>
+
+
+
+                <div class="card p-3 mt-5 mr-5 userrating" style="border-color: orange;border-width: 0.2rem;">
+                    <b>How much you like our product:</b>
+
+                    <!--<p class="rating">
+                <span id='star1' class="fa fa-star"></span>
+                <span id='star2' class="fa fa-star"></span>
+                <span id='star3' class="fa fa-star"></span>
+                <span id='star4' class="fa fa-star"></span>
+                <span id='star5' class="fa fa-star"></span>
+            </p>-->
+
+                    <!-- Star rating using font awesome -->
+
+
+                    <!-- <fieldset class="rating">
+
+                        <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5"
+                            title="Awesome - 5 stars"></label>
+                        <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half"
+                            for="star4half" title="Pretty good - 4.5 stars"></label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4"
+                            title="Pretty good - 4 stars"></label>
+                        <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half"
+                            for="star3half" title="Meh - 3.5 stars"></label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3"
+                            title="Meh - 3 stars"></label>
+                        <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half"
+                            for="star2half" title="Kinda bad - 2.5 stars"></label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2"
+                            title="Kinda bad - 2 stars"></label>
+                        <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half"
+                            for="star1half" title="Meh - 1.5 stars"></label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1"
+                            title="Sucks big time - 1 star"></label>
+                        <input type="radio" id="starhalf" name="rating" value="half" /><label class="half"
+                            for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                    </fieldset>
+                    <p> or </p> -->
+                    <span>
+                        <span id='emoji1' class="emojis">😔</span>
+                        <span id='emoji2' class="emojis">😟</span>
+                        <span id='emoji3' class="emojis">😐</span>
+                        <span id='emoji4' class="emojis">😃</span>
+                        <span id='emoji5' class="emojis">😍</span>
+                    </span>
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="col-md-6" style="font-size: 1.1rem">
+
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Spike Shoes(PUMA)</th>
+
+                        </tr>
+                        <tr>
+                            <td>Price : Rs. 14,600</td>
+                        </tr>
+                        <!-- <font size="4"> -->
+                        <tr>
+                            <td>
+                                <p>Rating <span class="fa fa-star checked"></span> <span
+                                        class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span
+                                        class="fa fa-star"></span>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+                <!-- Select quantity of product -->
+
+                <label for="quan">Quantity:</label>
+
+
+                <button class="btn-sm" id='increment' style='width: 30px;'><b>+</b></button>
+                <span>
+                    <p id="quantity" class="badge badge-primary">0</p>
+                </span>
+                <button class="btn-sm" id="decrement" style='width: 30px;'><b>-</b> </button>
+
+
+
+                <!-- select size of product -->
+
+                <p></p>
+                <label for="selsize">Select Size:</label>
+                <input type="radio" id="small" name="selsize" value="small">
+                <label for="small">Small</label>
+                <input type="radio" id="medium" name="selsize" value="medium">
+                <label for="medium">Medium</label>
+                <input type="radio" id="large" name="selsize" value="large">
+                <label for="large">Large</label><br><br>
+
+                <!-- Enter pincode here -->
+                <label for="pin">Enter Pincode:</label>
+                <input type="text" id="pin" name="pin"><br>
+
+
+                <div class="card mt-4" style="width:40rem;font-size: 1rem;">
+                    <div class="card-header">
+                        <h4 class="accordion-heading">
+                            Product Details
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="font-size-sm mb-2">Product Information</h6>
+                        <table class="card-table table">
+
+                            <tbody>
+                                <tr>
+                                    <th>Brand colour</th>
+                                    <td>Black</td>
+                                </tr>
+                                <tr>
+                                    <th>material</th>
+                                    <td>steel</td>
+                                </tr>
+                                <tr>
+                                    <th>Model no</th>
+                                    <td>FFES54</td>
+                                </tr>
+                                <tr>
+                                    <th>Diagonal size</th>
+                                    <td>6.45 Inch</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Brand Name</th>
+                                    <td>Redmi</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <!-- Product description -->
+                        <h6>Product Description</h6>
+                        <ul class="font-size-sm pl-4 mb-0">
+                            <p>Classic Design.Touchscreeen smartwatch features,extend battery life, speaker
+                                functionality
+                                and
+                                steel bracelet.
+                            </p>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+            <!-- <div class="col-md-2">
+
+            </div> -->
+        </div>
+
+
+
+
+        <!-- Product name brand and rating -->
+
+        <!-- Product details in form of table -->
+        <br><br>
+
+
+        <br>
+        <hr>
+
+
+        <h2>Have a question?</h2>
+        <p>Post your question below:</p>
+        <input placeholder="Post your question here" name="postquestion" style="width: 300px;"><br>
+        <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+            View FAQ here</a>
+
+        <div id="collapseExample" class="collapse">
+            <div id="questions">
+                <a class="questionlist">How much amount of monthly EMI for this mobile ?</a><br>
+                <a class="questionlist">How to login with google ?</a><br>
+                <a class="questionlist">How to buy prime membership ? </a>
+
+            </div>
+        </div>
+
+
+        <hr>
+
+
+
+
+
+
+
+        <!-- Review on product -->
+        <p></p>
+        <h2>Reviews</h2>
+        <input class="addreview" type="text" placeholder="Add your reviews    ">
+
+        <br>
+        <div class="reviewbox">
+            <div class="row">
+                <!-- image of user -->
+                <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;">
+
+                <!-- Content into review box -->
+                <div class="reviewboxcontent col-md-3">
+                    <p class="badge badge-secondary" style="display: inline;">Hasit Parmar</p>
+                    <p>Good product ! e-commerce Website work is going on.</p>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;">
+                <div class="reviewboxcontent col-md-3">
+                    <p class="badge badge-secondary" style="display: inline;">Dhyani Patel</p>
+                    <p>I like this love story book but love is hypothetical </p>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;">
+                <div class="reviewboxcontent col-md-3">
+                    <p class="badge badge-secondary" style="display: inline;">Keya Patel</p>
+                    <p>It's good but still my hair looks too much bright in camera</p>
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+                <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;">
+                <div class="reviewboxcontent col-md-3">
+                    <p class="badge badge-secondary" style="display: inline;">Shruti Patel</p>
+                    <p>Good mobile phone but i was unable to watch friends series in MI video player</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- other products slider -->
+
+
+
+        <h2>Other related products</h2>
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+
+            <!-- <ol class="carousel-indicators">
+              <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol> -->
+            <div class="carousel-inner" style="margin-left: 7px;">
+
+
+                <div class="carousel-item active">
+
+                    <div class="row">
+
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">1)Spike Shoes</h5>
+                                <p class="card-text">Price : $8999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">2)Spike Shoes</h5>
+                                <p class="card-text">Price : $9999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">3)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">4)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">5)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="carousel-item">
+                    <div class="row">
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">6)Spike Shoes</h5>
+                                <p class="card-text">Price : $8999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">7)Spike Shoes</h5>
+                                <p class="card-text">Price : $7000</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">8)Spike Shoes</h5>
+                                <p class="card-text">Price : $7000</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">9)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">10)Spike Shoes</h5>
+                                <p class="card-text">Price : $5999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images./girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">11)Spike Shoes</h5>
+                                <p class="card-text">Price : $1</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">12)Spike Shoes</h5>
+                                <p class="card-text">Price : $809</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">13)Spike Shoes</h5>
+                                <p class="card-text">Price : $8099</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="fas fa-chevron-circle-left" aria-hidden="true" style="font-size: 28px;color:black"></span>
+
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="fas fa-chevron-circle-right" aria-hidden="true" style="font-size: 28px;color:black"></span>
+
+                <span class="sr-only">Next</span>
+            </a>
+
+
+        </div>
+
+
+
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+
+    <!-- JS to handle operations -->
+    <script src="{% static 'js/productPreview.js' %}">
+
+    </script>
+
+    <div class="bg-modal">
+        <div class="modal-content">
+
+            <div class="close">+</div>
+
+            <form>
+                <h2 align="left">Add Address</h2><br>
+
+                <input type="text" id="fname" placeholder="Full Name" name="fname" style="width: 300px"><br><br>
+
+                <input type="text" id="mnum" placeholder="Mobile Number" name="fname" style="width: 300px"><br><br>
+
+                <input type="text" id="pincode" placeholder="PIN Code" name="fname" style="width: 300px"><br><br>
+
+                <input type="text" id="flatno" placeholder="Flat/House No., Apartment" name="fname"
+                    style="width: 300px"><br><br>
+
+                <input type="text" id="area" placeholder="Area/Colony, Village" name="fname"
+                    style="width: 300px"><br><br>
+
+                <input type="text" id="landmark" placeholder="Landmark e.g. Near Reliance" name="fname"
+                    style="width: 300px"><br><br>
+
+                <input type="text" id="city" placeholder="Town/City" name="fname" style="width: 300px"><br><br>
+
+                <select name="state" id="state" style="width: 208px">
+                    <option value="select">Select State</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Himachal">Himachal Pradesh</option>
+                </select><br><br>
+
+                <h4 align="left"> Add Delivery Instructions </h4>
+                <p align="left">Preferences are used to plan your delivery. However, shipments can sometimes arrive
+                    early or later than planned.</p><br>
+
+                <select name="type" id="type" style="width: 208px">
+                    <option value="selecttype">Select Address Type</option>
+                    <option value="Home">Home</option>
+                    <option value="Work">Work</option>
+                </select><br>
+
+                <input type="checkbox" id="default" name="default" value="default">
+                <label for="default">Use as my default address</label><br><br>
+
+                <button type="submit" value="addAddress">Add Address</button>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
