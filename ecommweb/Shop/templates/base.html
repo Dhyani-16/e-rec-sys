@@ -3,33 +3,67 @@
 <html lang="en">
 
 <head>
-<!-- Required meta tags -->
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    
-    {% block head %}
-    
-    <link rel='stylesheet' href="{% static 'css/base.css' %}">
-    
-    <link rel="stylesheet" href="{% static 'css/productPreview.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>{% block title %} {% endblock %}</title>
+    {% block head %} {% endblock %}
 
-    
-    {% endblock %}
-    
+    <Style>
+        .navbar-nav .nav-item:hover .nav-link:hover {
+            color: pink;
+            background-color: gray;
+        }
+        
+        .dropdown:hover>.dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown>.dropdown-toggle:active {
+            /*Without this, clicking will make it sticky*/
+            pointer-events: none;
+        }
+        
+        input[type="search"] {
+            padding-left: 115px;
+            padding-right: 27px;
+        }
+        
+        .btn-group {
+            margin-right: -100px;
+        }
+        
+        .selection {
+            margin-right: 22px;
+        }
+        
+        .abc a:hover {
+            background-color: aqua;
+            color: white;
+        }
+        
+        body .carousel-control-prev-icon,
+        body .carousel-control-next-icon {
+            background-color: black;
+            margin-top: 25px;
+        }
+        
+        body .carousel-indicators {
+            bottom: -40px;
+        }
+        
+        body .carousel-indicators li {
+            background-color: black;
+        }
+    </Style>
 
 </head>
 
 <body>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:60px;">
@@ -47,17 +81,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'shopHome' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">About </a>
+                    <a class="nav-link" href="{% url 'About' %}">About </a>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Contact Us<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'Contact' %}">Contact Us<span class="sr-only">(current)</span></a>
                 </li>
-				<li>		
+                <li>
                     <form method="get" class="form-inline my-2 my-lg-0" style="margin-left:35px;">
 
                         <div class="btn-group">
@@ -87,60 +121,52 @@
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" style="background-color: aquamarine;color: black;border-color: aquamarine;" aria-expanded="false">
                   Manage Account
                 </button>
-                            <div class="dropdown-menu abc" aria-labelledby="dropdownMenuButton" style="color: black;">
-                                
-								<a class="nav-link" style="color: black;padding-left: 20px;" href="#"><span style="font-size: 1em; color: black;"></span>
+                        <div class="dropdown-menu abc" aria-labelledby="dropdownMenuButton" style="color: black;">
+
+                            <a class="nav-link" style="color: black;padding-left: 20px;" href="#"><span style="font-size: 1em; color: black;"></span>
 									<i class="fas fa-user-circle mr-2">  </i>SignUp <span class="sr-only">(current)</span>
 								</a>
-                                
-								<a class="nav-link" href="#" style="padding-left: 20px;color: black;">
-                                    <span style="font-size: 1em; color: black;"></span> 	
-									<i class="fas fa-sign-in-alt mr-2">  </i>Login <span class="sr-only">(current)</span>
-                                </a>
 
-                            </div>
+                            <a class="nav-link" href="#" style="padding-left: 20px;color: black;">
+                                <span style="font-size: 1em; color: black;"></span>
+                                <i class="fas fa-sign-in-alt mr-2">  </i>Login <span class="sr-only">(current)</span>
+                            </a>
+
                         </div>
+        </div>
 
-                    </div>
-                </li>
+        </div>
+        </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" id="one" href="#" style=" border-radius: 5px;;margin-left: 5px;margin-top: 25px;height:37px;width:100px;
+        <li class="nav-item active">
+            <a class="nav-link" id="one" href="{% url 'Cart' %}" style=" border-radius: 5px;;margin-left: 5px;margin-top: 25px;height:37px;width:100px;
               background-color:aquamarine ;color: black; ">
-                        
-                        <div class='row'>
-                        <span style="font-size: 1em; color: black;margin-left: 13px;">
+                <span style="font-size: 1em; color: black;">
                 <i class="fas fa-shopping-cart"></i>
-              </span>
-              
-              <p style='font-size: 0.9em;'>My Cart</p>
-              </div>
-              
-              <span class="sr-only">(current)</span></a>
-                </li>
+              </span>My Cart<span class="sr-only">(current)</span></a>
+        </li>
 
-            </ul>
+        </ul>
         </div>
     </nav>
 
-    {% block body %}
-    {% endblock  %}
+    {% block body %} {% endblock %}
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(".dropdown-menu").on('click', 'li a', function() {
 
             $(this).parents(".btn-group").find('.selection').text($(this).text());
             $(this).parents(".btn-group").find('.selection').val($(this).text());
 
-        });        
+        });
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-	
-    {% block js %}
-    {% endblock  %}
-	
+
+    {% block js %} {% endblock %}
+
 </body>
 
 </html>
