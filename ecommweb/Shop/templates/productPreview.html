@@ -133,11 +133,11 @@
             <label for="quan">Quantity:</label>
 
 
-            <button class="btn-sm" id='increment' style='width: 30px;'><b>+</b></button>
+            <button class="btn-sm" id='decrement' style='width: 30px;'><b>-</b></button>
             <span>
                     <p id="quantity" class="badge badge-primary">0</p>
                 </span>
-            <button class="btn-sm" id="decrement" style='width: 30px;'><b>-</b> </button>
+            <button class="btn-sm" id="increment" style='width: 30px;'><b>+</b> </button>
 
 
 
@@ -227,19 +227,90 @@
 
     <h2>Have a question?</h2>
     <p>Post your question below:</p>
-    <input placeholder="Post your question here" name="postquestion" style="width: 300px;"><br>
-    <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    
+    <input placeholder="Post your question here" name="postquestion" style="width: 300px;"> 
+        <a class="button" href="#popup1">
+              Submit
+        </a>
+      <div id="popup1" class="overlay">
+          <div class="popup">
+              <h2>Thank You!</h2>
+              <a class="close" href="#">&times;</a>
+              <div class="content">
+                  We Will Be Pleased To Help You. Your Question Will Be Answered Soon...
+              </div>
+          </div>
+      </div>
+<br>
+    <!--<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    View FAQ here
+    </a>-->
 
-            View FAQ here</a>
-
-    <div id="collapseExample" class="collapse">
-        <div id="questions">
-            <a class="questionlist">How much amount of monthly EMI for this mobile ?</a><br>
-            <a class="questionlist">How to login with google ?</a><br>
-            <a class="questionlist">How to buy prime membership ? </a>
-
+    <div>
+        <h2>FAQs:</h2>
+        <!--<p>Click on the button to toggle between showing and hiding content.</p>-->
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">
+            How much amount of monthly EMI for this mobile?
+        </button>
+        <div id="demo" class="collapse">
+            <a href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms">
+                Monthly EMI for this product is Rs. 7500/-
+            </a>
+        </div>
+<br>
+<br>
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">
+            How to login with google?
+        </button>
+        <div id="demo1" class="collapse">
+            <a href="https://support.google.com/accounts/answer/76194?hl=en">
+                It's simple! Just enter your emailid and the password associated with it to successfully login to Google...
+            </a>
+        </div>
+<br>
+<br>
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">
+            How to buy prime membership?
+        </button>
+        <div id="demo2" class="collapse">
+            <a href="https://www.primevideo.com/?ref_=dvm_pds_amz_in_as_s_g_51|m_YNcN9OVnc_c394383628230">
+                Just go to Amazon and from the drawer, click on Go Prime!
+            </a>
         </div>
     </div>
+
+   <!-- <div id="collapseExample" class="collapse">
+        <div id="questions" class="questionlist">
+            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                How much amount of monthly EMI for this mobile?
+            </a>
+            <div id="collapseExample" class="collapse"></div>
+                <div id="answers">
+                    <a href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms" class="answerlist1">
+                        Monthly EMI for this product is Rs. 7500/-
+                    </a>
+                    <div id="collapseExample" class="collapse"></div>
+                </div>
+            <br>
+            <a class="questionlist">How to login with google?</a>
+            <div id="collapseExample" class="collapse"></div>
+             <div id="answers">
+                    <a href="https://support.google.com/accounts/answer/76194?hl=en" class="answerlist2">
+                        Monthly EMI for this product is Rs. 7500/-
+                    </a>
+                    <div id="collapseExample" class="collapse"></div>
+            </div>
+            <br>
+            <a class="questionlist">How to buy prime membership?</a>
+            <div id="collapseExample" class="collapse"></div>
+             <div id="answers">
+                    <a href="https://www.primevideo.com/?ref_=dvm_pds_amz_in_as_s_g_51|m_YNcN9OVnc_c394383628230" class="answerlist3">
+                        Monthly EMI for this product is Rs. 7500/-
+                    </a>
+                    <div id="collapseExample" class="collapse"></div>
+            </div>
+        </div>
+    </div> -->
 
 
     <hr>
@@ -507,13 +578,11 @@
 <script src="{% static 'js/productPreview.js' %}">
 </script>
 
-<div class="bg-modal">
+<div class="bg-modal" id="myform">
     <div class="modal-content">
 
-        <div class="close">+</div>
-
         <form>
-            <h2 align="left">Add Address</h2><br>
+            <h2 style="text-align: left;">Add Address</h2><br>
 
             <input type="text" id="fname" placeholder="Full Name" name="fname" style="width: 300px"><br><br>
 
@@ -538,8 +607,8 @@
                     <option value="Himachal">Himachal Pradesh</option>
                 </select><br><br>
 
-            <h4 align="left"> Add Delivery Instructions </h4>
-            <p align="left">Preferences are used to plan your delivery. However, shipments can sometimes arrive early or later than planned.</p><br>
+            <h4 style="text-align: left;"> Add Delivery Instructions </h4>
+            <p style="text-align: left;">Preferences are used to plan your delivery. However, shipments can sometimes arrive early or later than planned.</p><br>
 
             <select name="type" id="type" style="width: 208px">
                     <option value="selecttype">Select Address Type</option>
@@ -555,6 +624,8 @@
         </form>
     </div>
 </div>
+
+
 {% endblock %}
 </body>
 

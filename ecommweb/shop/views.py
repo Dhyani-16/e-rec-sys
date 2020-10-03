@@ -16,3 +16,4 @@ def about(request):
 
 def productPreview(request):
     return render(request,'productPreview.html')
+

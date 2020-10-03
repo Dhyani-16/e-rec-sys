@@ -124,3 +124,12 @@ $('#emoji1 , #emoji2 , #emoji3 , #emoji4 , #emoji5').hover(function (e) {
         t.style.fontSize = '2.5rem';
     
     })
+
+function thanks() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+
+function closeForm() {
+  document.getElementById("").style.display="none"
+}
