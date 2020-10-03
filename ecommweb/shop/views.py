@@ -15,5 +15,10 @@ def about(request):
     return render(request,'about.html')
 
 def productPreview(request):
+    if request.method=="POST":
+        uname = request.POST['name']
+        rating = request.POST['rating']
+
+        print(f"Username: {uname} \n Rating : {rating}")
     return render(request,'productPreview.html')
 

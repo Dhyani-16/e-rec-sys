@@ -86,12 +86,26 @@
                     </fieldset>
                     <p> or </p> -->
                 <span>
-                        <span id='emoji1' class="emojis">😔</span>
+                        <!-- <span id='emoji1' class="emojis">😔</span>
                 <span id='emoji2' class="emojis">😟</span>
                 <span id='emoji3' class="emojis">😐</span>
                 <span id='emoji4' class="emojis">😃</span>
                 <span id='emoji5' class="emojis">😍</span>
-                </span>
+                </span> -->
+
+                <form id="rating_form">
+                    {% csrf_token %}
+                <p>
+                <span id='star1' class="fa fa-star"></span>
+                <span id='star2' class="fa fa-star"></span>
+                <span id='star3' class="fa fa-star"></span>    
+                <span id='star4' class="fa fa-star"></span>
+                <span id='star5' class="fa fa-star"></span>
+            </p>
+            <input value="1" hidden='true' name='rating'>
+            <input id="submit" type="submit" class="btn btn-primary small btn-sm" style="display: none;">
+
+            </form>
 
 
 
