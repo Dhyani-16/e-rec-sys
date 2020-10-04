@@ -195,9 +195,7 @@ $(document).on('submit','#rating_form', function (event){
 })
 
 
-
-
-
+  
 
 
 function thanks() {
