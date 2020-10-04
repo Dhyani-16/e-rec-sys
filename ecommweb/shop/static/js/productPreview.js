@@ -179,7 +179,7 @@ $(document).on('submit','#rating_form', function (event){
     // console.log("Form submitted!")
     $.ajax({
         type: 'POST',
-        url: '/productDetail',
+        url: '/productDetail/',
         data:{
           rating: star_status,
           name: "userName",
@@ -195,9 +195,7 @@ $(document).on('submit','#rating_form', function (event){
 })
 
 
-
-
-
+  
 
 
 function thanks() {

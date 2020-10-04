@@ -596,7 +596,12 @@
     <div class="modal-content">
 
         <form>
-            <h2 style="text-align: left;">Add Address</h2><br>
+            <div class="row">
+            <h3 style="text-align: left; margin-left: 5px;">Add Address</h3>
+            <i class="far fa-window-close" style="margin-left: auto;margin-right: 15px;font-size: 25px;" id="closeIcon" onclick="closeAddressForm()"></i>
+            <!-- <h2 id="closetext" style="rotate: 45deg;">+</h2> -->
+        </div>
+            <br>
 
             <input type="text" id="fname" placeholder="Full Name" name="fname" style="width: 300px"><br><br>
 
@@ -638,6 +643,16 @@
         </form>
     </div>
 </div>
+<script>
+{% block js %}
+    function closeAddressForm() {
+        // console.log("clicked");
+  let addressform = document.getElementById('myform');
+  addressform.style.display = "none"; 
+        
+    }
+{% endblock %}
+</script>
 
 
 {% endblock %}
