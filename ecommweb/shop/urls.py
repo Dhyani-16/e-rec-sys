@@ -3,6 +3,13 @@ from . import views
 
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib import admin
+
+
+admin.site.site_header="Ecommerce Web Admin Site"
+admin.site.site_title="Ecommerce Website"
+admin.site.index_title="Ecommerce Website"
+
 
 urlpatterns = [
     path("",views.shopHome,name="shopHome"),
