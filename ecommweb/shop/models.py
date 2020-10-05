@@ -31,13 +31,13 @@ class Order_detail(models.Model):
     order_id = models.AutoField(primary_key=True)
     amount = models.FloatField(default=0.0)
     delivery_date = models.DateField(default="")
-    order_date = models.DateField(auto_now_add=True,default="")
+    order_date = models.DateField(auto_now_add=True)
     
     ORDER_STATUS = (
         ('delivered','Delivered'),
         ('pending','Pending')
     )
-    status =models.CharField(choices=ORDER_STATUS,default='pending')
+    status =models.CharField(max_length=100,choices=ORDER_STATUS,default='pending')
     
     product_data = jsonfield.JSONField()
     
@@ -45,38 +45,37 @@ class Order_detail(models.Model):
         return self.order_id
 
 class Rating_Detail(models.Model):
-    rating_user_id = models.Foreignkey(User,on_delete=models.CASCADE)
-	# rating_product_id = models.Foreignkey(Product_Detail,on_delete=models.CASCADE)
-    
-    srNo = models.IntegerField(primary_key=True)
-    rating = models.FloatField()
+        rating_user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+        rating_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE)
+        
+        srNo = models.AutoField(primary_key=True)
+        rating = models.FloatField()
 
-    def __str__(self):
-        obj = f"{self.rating} By {self.rating_user_id}" 
-        return obj
-
+        def __str__(self):
+            obj = f"{self.rating} By {self.rating_user_id}" 
+            return obj
 
 class Product_Review(models.Model):
-    review_user_id = models.Foreignkey(User,on_delete=models.CASCADE)
-	# review_product_id = models.Foreignkey(Product_Detail,on_delete=models.CASCADE)
-	
-	srNo = models.IntegerField(primary_key=True)
-    message = models.CharField(max_length=300)
-	currentTime = models.DateTimeField(auto_now_add=True)    
+        review_user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+        review_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE)
+        
+        srNo = models.AutoField(primary_key=True)
+        message = models.CharField(max_length=300)
+        currentTime = models.DateTimeField(auto_now_add=True)    
 
-    def __str__(self):
-        return self.srNo
+        def __str__(self):
+            return f"{self.review_user_id} Reviewed On a {self.review_product_id}"
 
 class UsersQuery(models.Model):
-	query_user_id = models.Foreignkey(User,on_delete=models.CASCADE)
-	# query_product_id = models.Foreignkey(Product_Detail,on_delete=models.CASCADE)
-	
-    srNo = models.IntegerField(primary_key=True)
-    question = CharField(max_length=500)
-	currentTime = models.DateTimeField(auto_now_add=True)
-	answer = models.CharField(max_length=500)
-	likes = models.AutoField()
+        query_user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+        query_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE)
+        
+        srNo = models.AutoField(primary_key=True)
+        question = models.CharField(max_length=500)
+        currentTime = models.DateTimeField(auto_now_add=True)
+        answer = models.CharField(max_length=500)
+        likes = models.IntegerField()
 
-    def __str__(self):
-        return self.srNo
+        def __str__(self):
+            return f"{self.query_user_id} Has Query Regarding {self.query_product_id}"
         
