@@ -22,10 +22,8 @@ def productPreview(request):
         product = Product_Detail.objects.filter(product_id=1)[0]
         print(product)
         if request.POST['formtype']=="rating":
-            uname = request.POST['name']
             rating = request.POST['rating']
-            product_id = request.POST['product_id']
-            print(f"uname:{uname} , rating :{rating}, product_id : {product_id}")
+            print(f"username:{request.user} , Rating :{rating}, product_id : {product}")
 
             Rating_Detail.objects.create(
                 rating_user_id = request.user,
@@ -34,13 +32,8 @@ def productPreview(request):
             )
             
         elif request.POST['formtype']=='review':
-            uname = request.POST['name']
             review = request.POST['review']
-            product_id = request.POST['product_id']
-            print(f"uname:{uname} , review:{review}, product_id : {product_id}")
-
-
-
+            print(f"username:{request.user} , Review:{review}, product_id : {product}")
 
             Product_Review.objects.create(
                 review_user_id = request.user,

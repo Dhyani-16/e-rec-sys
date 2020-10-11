@@ -208,8 +208,6 @@ $.ajax({
     {
       formtype:"review",
       review: $('#review').val(),
-      product_id: "product_id",
-      //product_id : $('#product_id').val(),
       name: "xyz",
       csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()        
     },

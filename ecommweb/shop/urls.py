@@ -16,7 +16,7 @@ urlpatterns = [
     path("about/",views.about,name="About"),
     path("contact/",views.contact,name="Contact"),
     path("cart/",views.cart,name="Cart"),
-    path("productDetail",views.productPreview,name="ProductDetail"),
+    path("productDetail/",views.productPreview,name="ProductDetail"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
