@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 import jsonfield
 
 class Product_Detail(models.Model):
+    
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
@@ -22,7 +23,7 @@ class Product_Detail(models.Model):
     quantity = models.IntegerField()
 
     def __str__(self):
-        return self.product_name
+        return str(self.product_id)
 
 class Order_detail(models.Model):
     order_user_id = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -45,22 +46,31 @@ class Order_detail(models.Model):
         return self.order_id
 
 class Rating_Detail(models.Model):
-        rating_user_id = models.ForeignKey(User,on_delete=models.CASCADE)
-        rating_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE)
+        rating_user_id = models.ForeignKey(User,on_delete=models.CASCADE, default='0')
+        rating_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE, default='1')
         
         srNo = models.AutoField(primary_key=True)
-        rating = models.FloatField()
+
+        rating_star = {
+            ('1' , '1'),
+            ('2' , '2'),
+            ('3' , '3'),
+            ('4' , '4'),
+            ('5' , '5')
+        }
+
+        rating =models.CharField(max_length=100,choices=rating_star,default='3')
 
         def __str__(self):
             obj = f"{self.rating} By {self.rating_user_id}" 
             return obj
 
 class Product_Review(models.Model):
-        review_user_id = models.ForeignKey(User,on_delete=models.CASCADE)
-        review_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE)
+        review_user_id = models.ForeignKey(User,on_delete=models.CASCADE, default="0")
+        review_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE, default='1')
         
         srNo = models.AutoField(primary_key=True)
-        message = models.CharField(max_length=300)
+        message = models.CharField(max_length=300, default='-')
         currentTime = models.DateTimeField(auto_now_add=True)    
 
         def __str__(self):
