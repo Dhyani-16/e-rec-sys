@@ -1,11 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Product_Detail,Order_detail,Rating_Detail,Product_Review,UsersQuery
+from math import ceil
 
 # Create your views here.
 
 def shopHome(request):
-    return render(request,'Home.html')
+    allProducts = []
+    catProds = Product_Detail.objects.values('category') #Getting Objects from the database..by using model product_detail category
+    # print(catProds)
+    cats = {item['category'] for item in catProds} #Getting the each obj category and store it in the set to get only unique categories
+    for cat in cats:
+        p = Product_Detail.objects.filter(category = cat) #it'll return the list of objects as requested.
+        l = len(p)
+        nslides = l//3 + ceil((l/3)-(l//3))
+        allProducts.append([p, range(1, nslides), nslides])
+
+    return render(request,'Home.html',{'AllProds':allProducts})
+
 
 def cart(request):
     return render(request,'cart.html')
