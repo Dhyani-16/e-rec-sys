@@ -28,7 +28,7 @@ def contact(request):
 def about(request):
     return render(request,'about.html')
 
-def productPreview(request):
+def productPreview(request,product_id):
     if request.method=="POST":
         
         product = Product_Detail.objects.filter(product_id=1)[0]
