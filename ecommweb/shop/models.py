@@ -9,6 +9,7 @@ class Product_Detail(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
+    product_specification = jsonfield.JSONField()
     img1 = models.ImageField(upload_to="shop/images")
     img2 = models.ImageField(upload_to="shop/images",blank=True)
     img3 = models.ImageField(upload_to="shop/images",null=True,blank=True)
