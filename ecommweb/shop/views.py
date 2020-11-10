@@ -31,7 +31,7 @@ def about(request):
 
 def productPreview(request,product_id):
 
-    reviews = Product_Review.objects.all()
+    reviews = Product_Review.objects.filter(review_product_id=product_id)
     
     context = {'current_product_id' : product_id, 'review' : reviews}
 
@@ -65,5 +65,5 @@ def productPreview(request,product_id):
                 review_product_id = product,
                 message = review )
 
-    print(reviews)
+   
     return render(request,'productPreview.html' , context=context)
