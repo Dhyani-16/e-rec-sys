@@ -152,7 +152,7 @@ onid = e.target.id;
 num = parseInt(onid[4]);
 // get user rating value
 star_status = num;
-// console.log("clicked");
+console.log("clicked");
 // visible submit button
 let btn = document.getElementById('submit');
 btn.style.display = "block";
@@ -171,59 +171,8 @@ for (let j = num+1;j<=5;j++){
 /*var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';*/
 
+
 // ajax query to handle user rating form submission without reloading page
-$(document).on('submit','#rating_form', function (event){
-
-  event.preventDefault();
-
-  $.ajax({
-      type: 'POST',
-      url: '/productDetail/',
-      data:{
-        
-        formtype:"rating",
-        rating: star_status,
-        name: "xyz",
-        product_id :"product_id",
-        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-
-      },
-
-      success : function(response){
-        
-        alert("Rating submitted successfully")
-      }
-  });
-})
-
-$(document).on('submit','#reviews_form', function (event){
-
-event.preventDefault();
-
-// console.log("Form submitted!")
-$.ajax({
-    type: 'POST',
-    url: '/productDetail/',
-    data: 
-    {
-      formtype:"review",
-      review: $('#review').val(),
-      product_id: "product_id",
-      //product_id : $('#product_id').val(),
-      name: "xyz",
-      csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()        
-    },
-
-    success : function(response){
-      
-      alert("Review submitted successfully");
-      $('#review').val('');
-    }
-});
-})
-
-
-
 
 function thanks() {
 var popup = document.getElementById("myPopup");

@@ -47,8 +47,8 @@ class Order_detail(models.Model):
 
 class Rating_Detail(models.Model):
         rating_user_id = models.ForeignKey(User,on_delete=models.CASCADE, default='0')
-        rating_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE, default='1')
-        
+        rating_product_id = models.ForeignKey(Product_Detail, on_delete=models.CASCADE, default='1')
+        #, related_name='product_id'
         srNo = models.AutoField(primary_key=True)
 
         rating_star = {
@@ -62,7 +62,7 @@ class Rating_Detail(models.Model):
         rating =models.CharField(max_length=100,choices=rating_star,default='3')
 
         def __str__(self):
-            obj = f"{self.rating} By {self.rating_user_id}" 
+            obj = f"{self.rating} By {self.rating_user_id} for {self.rating_product_id}" 
             return obj
 
 class Product_Review(models.Model):

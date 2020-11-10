@@ -23,40 +23,47 @@ def cart(request):
     return render(request,'cart.html')
 
 def contact(request):
+    print("---")
     return render(request,'contact.html')
 
 def about(request):
     return render(request,'about.html')
 
 def productPreview(request,product_id):
+
+    reviews = Product_Review.objects.all()
+    
+    context = {'current_product_id' : product_id, 'review' : reviews}
+
     if request.method=="POST":
         
-        product = Product_Detail.objects.filter(product_id=1)[0]
-        print(product)
-        if request.POST['formtype']=="rating":
-            uname = request.POST['name']
+        #uname= request.POST.get('uname', '')
+        #rating = request.POST.get('rating', rating)
+        #product_id = request.POST.get('product_id', '')
+
+        product = Product_Detail.objects.filter(product_id=product_id)[0]
+        print("Product id",product)
+        
+        if request.POST['formtype'] == "rating":
+           
             rating = request.POST['rating']
-            product_id = request.POST['product_id']
-            print(f"uname:{uname} , rating :{rating}, product_id : {product_id}")
+            product_id = product
+            print(f"rating :{rating}, product_id : {product_id}")
 
             Rating_Detail.objects.create(
                 rating_user_id = request.user,
-                rating_product_id= product,
+                rating_product_id= product_id,
                 rating = rating
             )
             
         elif request.POST['formtype']=='review':
-            uname = request.POST['name']
             review = request.POST['review']
-            product_id = request.POST['product_id']
-            print(f"uname:{uname} , review:{review}, product_id : {product_id}")
-
-
-
+            print(f"review:{review}, product_id : {product_id}")
 
             Product_Review.objects.create(
                 review_user_id = request.user,
                 review_product_id = product,
                 message = review )
 
-    return render(request,'productPreview.html')
+    print(reviews)
+    return render(request,'productPreview.html' , context=context)
