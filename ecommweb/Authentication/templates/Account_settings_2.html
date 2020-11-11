@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+<title>{% block title %} Account-Settings {% endblock %}</title>
+
+{% block body %}
+
+<style>
+    #Center {
+        text-align: center;
+        margin-top: 25px;
+    }
+</style>
+
+<div class="container my-4" style="width:600px;border: 2px solid; border-radius: 0.5em; border-color: green;">
+    <form method="post" class="my-4">
+        {% csrf_token %}
+        <br> <b>First-Name : </b> <span style="margin-left: 15px">{{ form.first_name2 }}</span> <br>
+        <br> <b>Last-Name : </b> <span style="margin-top: 15px; margin-left: 15px;">{{ form.last_name2 }} </span><br>
+        <br> <b>Mobile : </b> <span style="margin-top: 15px; margin-left: 15px;">{{ form.contact_no2 }}</span><br>
+        <br>
+        <br>
+        <p style="margin-bottom:5px; font-weight:bold;">2nd-Address (Flat no.,building,area,landmark ):</p> <br> <span style="margin-left: 25px;">{{ form.address2 }}
+        </span>
+        <br>
+        <br>
+        <b>City : </b> <span style="margin-top: 15px;margin-left: 15px;">{{ form.city2 }}</span><br>
+        <br> <b>State : </b> <span style="margin-top: 15px;margin-left: 15px;">{{ form.state2 }}</span><br>
+        <br> <b>Pincode : </b> <span style="margin-top: 15px;margin-left: 15px;">{{ form.pincode2 }}</span><br>
+
+        <div id="Center">
+            <button type="submit" class="btn btn-success" style="color: black;">Save Changes</button>
+        </div>
+
+
+    </form>
+</div>
+<script>
+</script>
+
+{% endblock %}

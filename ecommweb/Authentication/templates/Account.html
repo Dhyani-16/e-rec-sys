@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+<title>{% block title %} My Account {% endblock %}</title>
+
+{% block body %}
+
+<style>
+    a:hover {
+        color: blueviolet;
+        text-decoration: none;
+    }
+    
+    .card:hover {
+        background-color: lightgray;
+    }
+    
+    .Center {
+        text-align: center;
+    }
+</style>
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="card col-md-3 mx-4" style="width:18rem; border: solid; border-radius: 1em; border-width: 0.2rem;">
+            <div class="card-body align-items-center d-flex justify-content-center">
+                <a href="{% url 'Add_address' %}" role="button" class="stretched-link" style="font-size: 1.5em;">Add Address</a>
+            </div>
+        </div>
+
+        <div class="card col-md-3 mx-4 visible1" style="width:15rem; border: solid; border-radius: 1em; border-width: 0.2rem;">
+            <div class="card-body">
+                {% if status1 %}
+
+                <b class="text-success"> Default-Address </b><br> {% else %}
+
+                <p style="padding: 12px;"> </p>
+
+                {% endif %}
+                <hr>
+                <strong>{{ user.profile.first_name }} {{user.profile.last_name|truncatechars:10}}</strong><br> Contact: {{ user.profile.contact_no }}<br> <span id="no1">{{ user.profile.address1|truncatechars:25 }}</span><br> {{user.profile.city}}
+                <br> {{ user.profile.state }}<br><br><br>
+                <a href="{% url 'Account_settings_1' %}" role="button" class="btn btn-warning mx-4 d-flex justify-content-center" style="margin-top: 2rem;">Edit</a>
+                <form method="post" action="{% url 'deleteAd' 1 %}">
+                    {% csrf_token %}
+                    <div class="Center">
+                        <button type="submit" class="btn btn-danger mt-4">Remove</button>
+                    </div>
+                </form><br>
+
+                <form method="POST" id="form1" action="{% url 'set_default_address' %}">
+                    {% csrf_token %}
+                    <input type="text" value="1" name="value" hidden="true">
+                    <div class="Center">
+                        <button class="btn btn-primary mt-1" type="submit">Set as default</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="card col-md-3 mx-4 visible2" style="height:30rem;width:15rem; border: solid; border-radius: 1em; border-width: 0.2rem;">
+            <div class="card-body">
+
+                {% if status2 %}
+
+                <b class="text-success"> Default-Address </b><br> {% else %}
+                <p style="padding: 12px;"> </p>
+                {% endif %}
+                <hr>
+                <strong>{{ user.profile.first_name2 }} {{user.profile.last_name2|truncatechars:10}}</strong><br> Contact: {{ user.profile.contact_no2 }}<br> <span id="no2">{{ user.profile.address2|truncatechars:25 }}</span><br> {{ user.profile.city2}}
+                <br> {{user.profile.state2}}
+                <br>
+                <br><br><br>
+                <a href="{% url 'Account_settings_2' %}" role="button" class="btn btn-warning my-2 mx-4 d-flex justify-content-center">Edit</a>
+                <form method="post" action="{% url 'deleteAd' 2 %}">
+                    {% csrf_token %}
+                    <div class="Center">
+                        <button type="submit" class="btn btn-danger mt-4">Remove</button>
+                    </div>
+                </form><br>
+
+                <form method="POST" id="form2" action="{% url 'set_default_address' %}">
+                    {% csrf_token %}
+
+                    <input type="text" value="2" name="value" hidden="true">
+
+                    <div class="Center">
+                        <button class="btn btn-primary mt-1" type="submit">Set as default</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block js %}
+
+<script>
+    var value1 = $('#no1').text()
+    console.log(value1);
+    if (value1.length > 10) {
+        $('.visible1').show();
+    } else {
+        $('.visible1').hide();
+    }
+
+    var value2 = $('#no2').text()
+    console.log(value2);
+    if (value2.length > 10) {
+        $('.visible2').show();
+    } else {
+        $('.visible2').hide();
+    }
+</script>
+
+{% endblock %}

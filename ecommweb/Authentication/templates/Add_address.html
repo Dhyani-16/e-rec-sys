@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+<title>{% block title %} Add Address {% endblock %}</title>
+
+{% block body %}
+
+<style>
+    #Center {
+        text-align: center;
+        margin-top: 25px;
+    }
+</style>
+
+<div class="container my-4" style="width:600px;border: 2px solid; border-radius: 0.5em; border-color: green;">
+    <form method="post" class="my-4">
+        {% csrf_token %}
+        <strong> First-Name: </strong><input type="text" name="first2" required><br><br>
+        <strong> Last-Name: <input type="text" name="last2"></strong><br><br>
+        <strong> Contact-no: </strong> <input type="number" name="contact2" min="1111111111" max="999999999999" required><br><br>
+        <strong> Address-2 (Flat no.,building,area,landmark ): <br><br><textarea id="ad2" name="ad2" rows="3" cols="75" minlength="10" required> </textarea></strong> <br><br>
+        <strong> City:  </strong><select name="cit2" required><option>Ahmedabad</option><option>Surat</option><option>Rajkot</option><option>Gandhinagar</option><option>Bhavnagar</option> </select> <br><br>
+        <strong> State:  </strong><input type="text" name="st2" required><br><br>
+        <strong> Pincode:  </strong><input type="number" name="pin2" required><br><br>
+
+        <div id="Center">
+            <button type="submit" class="btn btn-success" style="color: black;">Save Changes</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

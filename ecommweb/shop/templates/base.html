@@ -120,29 +120,44 @@
                 <li>
                     <div class="container my-4">
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" style="background-color: aquamarine;color: black;border-color: aquamarine;" aria-expanded="false">
-                  Manage Account
-                </button>
+                            {% if user.is_authenticated %}
+                            <button class="btn dropdown-toggle" style="background-color:springgreen" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hey {{user.username}}
+                            </button>
+
+                        <div class="dropdown-menu pl-2" aria-labelledby="dropdownMenuButton1">
+                            <b><a href="{% url 'Account' %}" role="button" class="btn btn-sm btn-warning ml-2 my-1">Account</a></b>
+                            <form action="{% url 'LogoutUSER' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-dark ml-2 my-1">Logout</button>
+                            </form>
+                        </div>
+
+                        {% else %}
+
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" style="background-color: aquamarine;color: black;border-color: aquamarine;" aria-expanded="false">
+                              Manage Account
+                        </button>
+
                         <div class="dropdown-menu abc" aria-labelledby="dropdownMenuButton" style="color: black;">
 
-                            <a class="nav-link" style="color: black;padding-left: 20px;" href="#"><span style="font-size: 1em; color: black;"></span>
-									<i class="fas fa-user-circle mr-2">  </i>SignUp <span class="sr-only">(current)</span>
+                            <a class="nav-link" style="color: black;padding-left: 20px;" href="{% url 'SignupUSER' %}"><span style="font-size: 1em; color: black;"><b>Create A New Account</b></span><br>
+                                <i class="fas fa-user-circle mr-2"></i> SignUp <span class="sr-only">(current)</span>
 								</a>
 
-                            <a class="nav-link" href="#" style="padding-left: 20px;color: black;">
-                                <span style="font-size: 1em; color: black;"></span>
-                                <i class="fas fa-sign-in-alt mr-2">  </i>Login <span class="sr-only">(current)</span>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="nav-link" href="{% url 'LoginUSER' %}" style="padding-left: 20px;color: black;">
+                                <span style="font-size: 1em; color: black;"><b>Already Have An Account ?</b></span><br> <i class="fas fa-sign-in-alt mr-2"></i> Login <span class="sr-only">(current)</span>
                             </a>
-
+                            {% endif %}
                         </div>
-        </div>
-
         </div>
         </li>
 
         <li class="nav-item active">
             <a class="nav-link" id="one" href="{% url 'Cart' %}" style=" border-radius: 5px;;margin-left: 5px;margin-top: 25px;height:37px;width:100px;
-              background-color:aquamarine ;color: black; ">
+              background-color:deepskyblue; color: black; ">
                 <span style="font-size: 1em; color: black;">
                 <i class="fas fa-shopping-cart"></i>
               </span>My Cart<span class="sr-only">(current)</span></a>
@@ -162,8 +177,8 @@
 
         });
     </script>
-     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     {% block js %} {% endblock %}

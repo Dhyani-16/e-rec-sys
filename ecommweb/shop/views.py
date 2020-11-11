@@ -23,7 +23,7 @@ def cart(request):
     return render(request,'cart.html')
 
 def contact(request):
-    print("---")
+    # print("---")
     return render(request,'contact.html')
 
 def about(request):

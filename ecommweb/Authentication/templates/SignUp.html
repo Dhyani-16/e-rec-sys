@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+<title>{% block title %} Create Account {% endblock %}</title>
+
+{% block body %}
+<div class="container mt-4" style="width:600px;border: 2px solid; border-radius: 0.5em; border-color:khaki;">
+    <h1 class="my-4" style="text-align:center;">Create a New Account</h1>
+
+    <h5><b style="color:red;">{{error}}</b></h5><br>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group mr-2">
+            <label for="Username"><strong>UserName : </strong></label>
+            <input type="text" id="Username" class="form-control" name="UserName" placeholder="Enter Your Name" required>
+        </div>
+
+        <div class="form-group mr-2">
+            <label for="Password1"><strong>Password : </strong></label>
+            <input type="password" id="Password1" class="form-control" name="PassWord1" placeholder="Create a strong password" required>
+        </div>
+        <div class="form-group mr-2">
+            <label for="Password2"><strong>Confirm Password : </strong></label>
+            <input type="password" id="Password2" class="form-control" name="PassWord2" required>
+        </div>
+        <div class="form-group mr-2">
+            <label for="Email"><strong>Email : </strong></label>
+            <input type="text" id="Email" class="form-control" name="email" placeholder="Enter Your Email" required>
+        </div>
+
+        <!-- All fields of profile form can be accessed via names -->
+        <br> <b>First-Name : </b> <span style="margin-left: 15px">{{ profileform.first_name }}</span> <br>
+        <br> <b>Last-Name : </b> <span style="margin-top: 15px; margin-left: 15px;">{{ profileform.last_name }} </span><br>
+        <br> <b>Mobile : </b> <span style="margin-top: 15px; margin-left: 15px;">{{ profileform.contact_no }}</span><br>
+        <br>
+        <p style="margin-bottom:5px; font-weight:bold;">Your-Address (Flat no.,building,area,landmark ): </p> <br> <span style="margin-left: 25px;">{{ profileform.address1 }}</span> <br>
+        <br>
+        <br> <b>City : </b> <span style="margin-top: 15px;margin-left: 15px;">{{ profileform.city }}</span><br>
+        <br> <b>State : </b> <span style="margin-top: 15px;margin-left: 15px;">{{ profileform.state }}</span><br>
+        <br> <b>Pincode : </b> <span style="margin-top: 15px;margin-left: 15px;">{{ profileform.pincode }}</span><br>
+
+        <div class="my-4" style="text-align:center;">
+            <button type="submit" class="btn btn-info">Sign Up</button>
+        </div>
+        <br>
+    </form>
+</div>
+<br><br> {% endblock %}
