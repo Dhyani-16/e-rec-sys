@@ -72,10 +72,10 @@ class Product_Review(models.Model):
         
         srNo = models.AutoField(primary_key=True)
         message = models.CharField(max_length=300, default='-')
-        currentTime = models.DateTimeField(auto_now_add=True)    
+        reviewTime = models.DateTimeField(auto_now_add=True)    
 
         def __str__(self):
-            return f"{self.review_user_id} Reviewed On a {self.review_product_id}"
+            return f"{self.review_user_id} Reviewed On a {self.review_product_id} at {self.reviewTime}"
 
 class UsersQuery(models.Model):
         query_user_id = models.ForeignKey(User,on_delete=models.CASCADE)

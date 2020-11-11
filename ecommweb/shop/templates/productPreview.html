@@ -21,7 +21,7 @@
         <div class="col-md-5">
             <div class="w3-container">
                 <div class="w3-content w3-display-container">
-                    <img class="mySlides" src="{{product.img1.url}}" style="width:60%">
+                    <img class="mySlides" src="{{products.img1.url}}" style="width:60%">
                     <!-- <img class="mySlides" src="{% static 'images/2.jpeg' %}" style="width:60%">
                     <img class="mySlides" src="{% static 'images/3.jpeg' %}" style="width:60%"> -->
 
@@ -134,23 +134,23 @@
                 <tbody>
                     <tr>
                         <th>
-                            <h4>{{product.product_name}}</h4>
+                            <h4>{{products.product_name}}</h4>
                         </th>
 
                     </tr>
                     <tr>
-                        <td>Price : {{product.price}}</td>
+                        <td>Price : ₹ {{products.price}}</td>
                     </tr>
                     <!-- <font size="4"> -->
                     <tr>
                         <td>
                             <p>Rating
-                                {% with ''|center:product.productrating as range %}
-                                    {% for i in range %}
-                                    <span class="fa fa-star checked"></span>
-                                    {% endfor %}
+                                {% with ''|center:products.productrating as range %}
+                                {% for i in range %}
+                                <span class="fa fa-star checked"></span>
+                                {% endfor %}
                                 {% endwith %}
-                                <b>{{product.productrating}}</b>
+                                <b>{{products.productrating}}</b>
                             </p>
 
                         </td>
@@ -200,7 +200,7 @@
                     <table class="card-table table">
 
                         <tbody>
-                            {% for key, value in product.product_specification.items %}
+                            {% for key, value in products.product_specification.items %}
                             <tr>
                                 <th>{{key}}</th>
                                 <td>{{value}}</td>
@@ -225,17 +225,22 @@
 
                             <tr>
                                 <th>Brand Name</th>
-                                <td>{{product.brand}}</td>
+                                <td>{{products.brand}}</td>
                             </tr>
+
+                            <tr>
+                                <th>Product Description</th>
+                                <td>{{products.description}}</td>
+                            </tr>
+
                         </tbody>
                     </table>
 
-
-                    <!-- Product description -->
-                    <h6 class="font-size-sm mb-2">Product Description</h6>
+ 
+                    <!--<h6 class="font-size-sm mb-2">Product Description</h6>
                     <ul class="font-size-sm pl-4 mb-0">
-                        <p>{{product.description}}
-                        </p>
+                        <p>{{products.description}}
+                        </p>-->
                     </ul>
                 </div>
 
@@ -382,19 +387,30 @@
     <br>
     <div class="reviewbox">
         {% load static %}
+        {% load humanize %}
 
         {% for i in review %}
 
 
         <div class="row">
 
+
             <!-- image of user -->
-            <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;">
+            <div>
+                <p>
+                    <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;"></p>
+            </div>
 
             <!-- Content into review box -->
             <div class="reviewboxcontent col-md-3">
-                <p class="badge badge-secondary" style="display: inline;">{{i.review_user_id}}</p>
+                <div>
+                    <p class="badge badge-secondary" style="display: inline;">{{i.review_user_id}}</p>
+
+                </div>
+
                 <p>{{i.message}}</p>
+                <p style="font-size: 13px; color:'grey'">Reviewed : {{i.reviewTime|naturaltime}}</h6>
+
             </div>
 
         </div>

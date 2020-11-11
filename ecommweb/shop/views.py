@@ -34,7 +34,7 @@ def productPreview(request,product_id):
     products = Product_Detail.objects.filter(product_id=product_id)[0]
     reviews = Product_Review.objects.filter(review_product_id=product_id)
     
-    context = {'current_product_id' : product_id, 'review' : reviews, 'product' : products}
+    context = {'current_product_id' : product_id, 'review' : reviews, 'products' : products}
 
     if request.method=="POST":
         
@@ -42,13 +42,12 @@ def productPreview(request,product_id):
         #rating = request.POST.get('rating', rating)
         #product_id = request.POST.get('product_id', '')
 
-        product = Product_Detail.objects.filter(product_id=product_id)[0]
-        print("Product id",product)
+        print("Product id",products)
         
         if request.POST['formtype'] == "rating":
            
             rating = request.POST['rating']
-            product_id = product
+            product_id = products
             print(f"rating :{rating}, product_id : {product_id}")
 
             Rating_Detail.objects.create(
@@ -63,7 +62,7 @@ def productPreview(request,product_id):
 
             Product_Review.objects.create(
                 review_user_id = request.user,
-                review_product_id = product,
+                review_product_id = product_id,
                 message = review )
 
    
