@@ -143,6 +143,7 @@
                     <tr>
                         <td>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                             <p>Rating
                                 {% with ''|center:products.productrating as range %}
                                 {% for i in range %}
@@ -151,6 +152,8 @@
                                 {% endwith %}
                                 <b>{{products.productrating}}</b>
 =======
+=======
+>>>>>>> Stashed changes
                             <p>Rating {% with ''|center:product.productrating as range %} {% for i in range %}
                                 <span class="fa fa-star checked"></span> {% endfor %} {% endwith %}
                                 <b>{{product.productrating}}</b>
@@ -210,11 +213,14 @@
                                 <td>{{value}}</td>
                             </tr>
                             {% endfor %}
+<<<<<<< Updated upstream
 
                             <tr>
                                 <th>Brand Name</th>
                                 <td>{{products.brand}}</td>
                             </tr>
+=======
+>>>>>>> Stashed changes
 
                             <tr>
                                 <th>Product Description</th>
@@ -373,10 +379,14 @@
     <br>
     <div class="reviewbox">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         {% load static %}
         {% load humanize %}
 
         {% for i in review reversed %}
+=======
+        {% load static %} {% for i in review %}
+>>>>>>> Stashed changes
 =======
         {% load static %} {% for i in review %}
 >>>>>>> Stashed changes
