@@ -200,9 +200,15 @@
                     <table class="card-table table">
 
                         <tbody>
+                            {% for key, value in product.product_specification.items %}
                             <tr>
-                                <th>Brand colour</th>
-                                <td>Black</td>
+                                <th>{{key}}</th>
+                                <td>{{value}}</td>
+                            </tr>
+                            {% endfor %}
+                            <!--tr>
+                                <th>Product colour</th>
+                                <td>black</td>
                             </tr>
                             <tr>
                                 <th>material</th>
@@ -215,11 +221,11 @@
                             <tr>
                                 <th>Diagonal size</th>
                                 <td>6.45 Inch</td>
-                            </tr>
+                            </tr-->
 
                             <tr>
                                 <th>Brand Name</th>
-                                <td>Redmi</td>
+                                <td>{{product.brand}}</td>
                             </tr>
                         </tbody>
                     </table>
