@@ -31,9 +31,10 @@ def about(request):
 
 def productPreview(request,product_id):
 
+    products = Product_Detail.objects.filter(product_id=product_id)[0]
     reviews = Product_Review.objects.filter(review_product_id=product_id)
     
-    context = {'current_product_id' : product_id, 'review' : reviews}
+    context = {'current_product_id' : product_id, 'review' : reviews, 'product' : products}
 
     if request.method=="POST":
         

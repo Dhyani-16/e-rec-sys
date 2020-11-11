@@ -21,9 +21,9 @@
         <div class="col-md-5">
             <div class="w3-container">
                 <div class="w3-content w3-display-container">
-                    <img class="mySlides" src="{% static 'images/girls_pink_shoes.jpeg' %}" style="width:60%">
-                    <img class="mySlides" src="{% static 'images/2.jpeg' %}" style="width:60%">
-                    <img class="mySlides" src="{% static 'images/3.jpeg' %}" style="width:60%">
+                    <img class="mySlides" src="{{product.img1.url}}" style="width:60%">
+                    <!-- <img class="mySlides" src="{% static 'images/2.jpeg' %}" style="width:60%">
+                    <img class="mySlides" src="{% static 'images/3.jpeg' %}" style="width:60%"> -->
 
                     <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle"
                         style="width:80%"></div>
@@ -133,19 +133,26 @@
             <table>
                 <tbody>
                     <tr>
-                        <th>Spike Shoes(PUMA)</th>
+                        <th>
+                            <h4>{{product.product_name}}</h4>
+                        </th>
 
                     </tr>
                     <tr>
-                        <td>Price : Rs. 14,600</td>
+                        <td>Price : {{product.price}}</td>
                     </tr>
                     <!-- <font size="4"> -->
                     <tr>
                         <td>
-                            <p>Rating <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span
-                                    class="fa fa-star"></span>
+                            <p>Rating
+                                {% with ''|center:product.productrating as range %}
+                                    {% for i in range %}
+                                    <span class="fa fa-star checked"></span>
+                                    {% endfor %}
+                                {% endwith %}
+                                <b>{{product.productrating}}</b>
                             </p>
+
                         </td>
                     </tr>
                 </tbody>
@@ -160,7 +167,7 @@
 
             <button class="btn-sm" id='decrement' style='width: 30px;'><b>-</b></button>
             <span>
-                <p id="quantity" class="badge badge-primary">0</p>
+                <p id="quantity" class="badge badge-primary">1</p>
             </span>
             <button class="btn-sm" id="increment" style='width: 30px;'><b>+</b> </button>
 
@@ -219,10 +226,9 @@
 
 
                     <!-- Product description -->
-                    <h6>Product Description</h6>
+                    <h6 class="font-size-sm mb-2">Product Description</h6>
                     <ul class="font-size-sm pl-4 mb-0">
-                        <p>Classic Design.Touchscreeen smartwatch features,extend battery life, speaker functionality
-                            and steel bracelet.
+                        <p>{{product.description}}
                         </p>
                     </ul>
                 </div>
@@ -370,12 +376,12 @@
     <br>
     <div class="reviewbox">
         {% load static %}
-        
+
         {% for i in review %}
-      
+
 
         <div class="row">
-    
+
             <!-- image of user -->
             <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;">
 
@@ -387,7 +393,7 @@
 
         </div>
 
-          {% endfor %}
+        {% endfor %}
 
     </div>
 
@@ -634,29 +640,29 @@ crossorigin="anonymous"></script>
 
 <script>
 
-    $(document).on('submit','#reviews_form', function (event){
+    $(document).on('submit', '#reviews_form', function (event) {
 
         event.preventDefault();
-        
-         console.log("Form submitted!")
+
+        console.log("Form submitted!")
         $.ajax({
             type: 'POST',
-           url: '/productDetail/{{current_product_id}}',
-           data: 
-           {
-              formtype:"review",
-              review: $('#review').val(),
-              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()        
-           },
-        
-            success : function(response){
-              
-               alert("Review submitted successfully");
-               $('#review').val('');
-             }
-         });
-         })
-        
+            url: '/productDetail/{{current_product_id}}',
+            data:
+            {
+                formtype: "review",
+                review: $('#review').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+
+            success: function (response) {
+
+                alert("Review submitted successfully");
+                $('#review').val('');
+            }
+        });
+    })
+
 </script>
 
 
