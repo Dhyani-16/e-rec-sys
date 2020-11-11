@@ -43,11 +43,12 @@ def productPreview(request,product_id):
         #product_id = request.POST.get('product_id', '')
 
         print("Product id",products)
+        product_id = products
         
         if request.POST['formtype'] == "rating":
            
             rating = request.POST['rating']
-            product_id = products
+           
             print(f"rating :{rating}, product_id : {product_id}")
 
             Rating_Detail.objects.create(
@@ -58,6 +59,7 @@ def productPreview(request,product_id):
             
         elif request.POST['formtype']=='review':
             review = request.POST['review']
+            
             print(f"review:{review}, product_id : {product_id}")
 
             Product_Review.objects.create(
