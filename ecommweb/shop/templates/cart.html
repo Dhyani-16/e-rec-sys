@@ -3,3 +3,40 @@
 <!-- {% for i in cart %}
 i.Product_Detail
 {% endfor %} -->
+{% block js %}
+<script>
+
+if(localStorage.getItem('cart')==null){
+    var cart = {};
+}
+else{
+    cart = JSON.parse(localStorage.getItem('cart'));
+    document.getElementById("cart").innerHTML = Object.keys(cart).length;
+
+}
+
+$('.cart').click(function(){
+
+var idstr = this.id.toString();
+
+if(cart[idstr] != undefined){
+    cart[idstr] = cart[idstr] + 1;
+    //console.log("This product is already present in your cart!");
+}
+else{
+    cart[idstr]=1;  
+}
+//var x=document.getElementById("name").innerHTML;
+//localStorage.setItem("name",x);
+
+console.log(cart);
+//console.log(localStorage.getItem("name"));
+//cart[productName] = x;
+//console.log(cart[productName]);
+
+localStorage.setItem('cart', JSON.stringify(cart));
+
+});
+
+</script>
+{% endblock %}
