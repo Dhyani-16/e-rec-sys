@@ -156,11 +156,11 @@
         </li>
 
         <li class="nav-item active">
-            <a class="nav-link" id="one" href="{% url 'Cart' %}" style=" border-radius: 5px;;margin-left: 5px;margin-top: 25px;height:37px;width:100px;
+            <a class="nav-link" id="one" href="{% url 'Cart' %}" style=" border-radius: 5px;;margin-left: 5px;margin-top: 25px;height:37px;width:115px;
               background-color:deepskyblue; color: black; ">
                 <span style="font-size: 1em; color: black;">
                 <i class="fas fa-shopping-cart"></i>
-              </span>My Cart<span class="sr-only">(current)</span></a>
+              </span>My Cart(<span id="cart">0</span>)</a>
         </li>
 
         </ul>
@@ -181,7 +181,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    {% block js %} {% endblock %}
+    {% block js %}  {% endblock %}
 
 </body>
 

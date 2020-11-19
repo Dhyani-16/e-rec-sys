@@ -24,17 +24,17 @@
                     {%for p in product %}
                     <div class="col-md-4">
                         <div class="card justify-content-center mt-2 ml-5" style="width: 16rem;height:25rem;">
-                            <img class="card-img" src={{p.img1.url}} height="175px">
+                            <img class="card-img" id="image" src={{p.img1.url}} height="175px">
                             <div class="card-body">
-                                <h4 class="card-title">{{p.product_name}}</h4>
+                                <h4 class="card-title cart" id="name">{{p.product_name}}</h4>
                                 <h6 class="card-subtitle mb-2 text-muted">{{p.brand}}</h6>
                                 <p class="card-text">
                                     {{p.description|truncatechars:25}} </p>
 
                                 <div class="price text-success">
-                                    <h5 class="mt-1">{{p.price}} Rs.</h5>
+                                    <h5 class="mt-1">₹ {{p.price}}</h5>
                                 </div>
-                                <a href="#" class="btn btn-warning btn-sm mt-2">Add to Cart</a>
+                                <button id="{{p.product_id}}" class="btn btn-warning btn-sm mt-2 cart">Add to Cart</button>
                                 <a href="/productDetail/{{p.product_id}}" class="btn btn-info btn-sm mt-2 ml-3">View
                                     Product</a>
                             </div>
@@ -68,3 +68,41 @@
 </div>
 
 {% endfor %} {% endblock %}
+
+{% block js %}
+<script>
+
+if(localStorage.getItem('cart')==null){
+    var cart = {};
+}
+else{
+    cart = JSON.parse(localStorage.getItem('cart'));
+    document.getElementById("cart").innerHTML = Object.keys(cart).length;
+
+}
+
+$('.cart').click(function(){
+
+var idstr = this.id.toString();
+
+if(cart[idstr] != undefined){
+    cart[idstr] = cart[idstr] + 1;
+    //console.log("This product is already present in your cart!");
+}
+else{
+    cart[idstr]=1;  
+}
+//var x=document.getElementById("name").innerHTML;
+//localStorage.setItem("name",x);
+
+console.log(cart);
+//console.log(localStorage.getItem("name"));
+//cart[productName] = x;
+//console.log(cart[productName]);
+
+localStorage.setItem('cart', JSON.stringify(cart));
+
+});
+
+</script>
+{% endblock %}

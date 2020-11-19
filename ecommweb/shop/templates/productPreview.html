@@ -25,7 +25,8 @@
                     <!-- <img class="mySlides" src="{% static 'images/2.jpeg' %}" style="width:60%">
                     <img class="mySlides" src="{% static 'images/3.jpeg' %}" style="width:60%"> -->
 
-                    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:80%"></div>
+                    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle"
+                        style="width:80%"></div>
                     <div class="row">
                         <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
                         <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
@@ -40,9 +41,10 @@
                     style='font-size:24px;display: inline;'></i></button>
 
             <!--Buy Now & Add to Cart Button-->
-            <button class="button mt-5" onclick="deliveryDetails()" style="vertical-align:middle" value="Add a new row"><i class="fa fa-shopping-basket" aria-hidden="true"></i><span><a href="#"
-                        id="button">Buy Now </a></span></button>
-            <button class="button mt-5" style="vertical-align:middle"><i class="fa fa-shopping-cart"></i><span>Add
+            <button class="btn btn-warning btn-lg mt-5" onclick="deliveryDetails()" style="color: 'white'">
+                <i class="fa fa-shopping-basket"></i><span><a href="#" id="button" style="color: black;">Buy Now</a></span></button>
+            <button id="{{products.product_id}}" class="btn btn-info btn-lg mt-5 cart">
+                <i class="fa fa-shopping-cart"></i><span>Add
                     To Cart </span></button>
 
 
@@ -97,23 +99,23 @@
 
                 -->
 
-                <form id="rating_form" method="POST">
-                    {% csrf_token %}
-                    <p>
-                        <span id='star1' class="fa fa-star"></span>
-                        <span id='star2' class="fa fa-star"></span>
-                        <span id='star3' class="fa fa-star"></span>
-                        <span id='star4' class="fa fa-star"></span>
-                        <span id='star5' class="fa fa-star"></span>
-                    </p>
-                    <input value="1" hidden='true' name='rating'>
-                    <input id="submit" type="submit" class="btn btn-primary small btn-sm" ,style="display: none;">
-                    <!--<button onclick="document.getElementById('prod').value">Submit</button>-->
+                    <form id="rating_form" method="POST">
+                        {% csrf_token %}
+                        <p>
+                            <span id='star1' class="fa fa-star"></span>
+                            <span id='star2' class="fa fa-star"></span>
+                            <span id='star3' class="fa fa-star"></span>
+                            <span id='star4' class="fa fa-star"></span>
+                            <span id='star5' class="fa fa-star"></span>
+                        </p>
+                        <input value="1" hidden='true' name='rating'>
+                        <input id="submit" type="submit" class="btn btn-primary small btn-sm" ,style="display: none;">
+                        <!--<button onclick="document.getElementById('prod').value">Submit</button>-->
 
-                    <!--<a class="button" href="productPreview.js"> Submit</a>
+                        <!--<a class="button" href="productPreview.js"> Submit</a>
                         value={{p.product_id}}-->
 
-                </form>
+                    </form>
 
 
 
@@ -214,7 +216,7 @@
                         </tbody>
                     </table>
 
- 
+
                     <!--<h6 class="font-size-sm mb-2">Product Description</h6>
                     <ul class="font-size-sm pl-4 mb-0">
                         <p>{{products.description}}
@@ -274,7 +276,8 @@
             How much amount of monthly EMI for this mobile?
         </button>
         <div id="demo" class="collapse">
-            <a href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms">
+            <a
+                href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms">
                 Monthly EMI for this product is Rs. 7500/-
             </a>
         </div>
@@ -351,7 +354,8 @@
             {% csrf_token %}
             <!--CSRF : Cross Site Request Forgery-->
 
-            <input class="addreview" id="review" type="text" name="review" style="width: 300px" placeholder="Add your reviews    ">
+            <input class="addreview" id="review" type="text" name="review" style="width: 300px"
+                placeholder="Add your reviews    ">
             <!-- <input id="submit" type="submit" class="btn btn-primary small btn-sm" style="display: block;"> -->
 
             <!--<button type="submit" class="button"><span>Submit</span></button>-->
@@ -367,7 +371,7 @@
         {% load humanize %}
 
         {% for i in review reversed %}
-         
+
 
 
 
@@ -615,7 +619,7 @@ crossorigin="anonymous"></script>
 </script>
 
 <script>
-    $(document).on('submit', '#rating_form', function(event) {
+    $(document).on('submit', '#rating_form', function (event) {
 
         event.preventDefault();
         //x={{current_product_id}};
@@ -630,7 +634,7 @@ crossorigin="anonymous"></script>
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             },
 
-            success: function(response) {
+            success: function (response) {
 
                 alert("Rating submitted successfully")
             }
@@ -639,7 +643,7 @@ crossorigin="anonymous"></script>
 </script>
 
 <script>
-    $(document).on('submit', '#reviews_form', function(event) {
+    $(document).on('submit', '#reviews_form', function (event) {
 
         event.preventDefault();
 
@@ -653,7 +657,7 @@ crossorigin="anonymous"></script>
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
 
-            success: function(response) {
+            success: function (response) {
 
                 alert("Review submitted successfully");
                 $('#review').val('');
@@ -663,13 +667,40 @@ crossorigin="anonymous"></script>
 </script>
 
 
+<script>
+
+if(localStorage.getItem('cart')==null){
+    var cart = {};
+}
+else{
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+
+$('.cart').click(function(){
+
+var idstr = this.id;
+console.log(idstr); 
+if(cart[idstr] != undefined){
+    cart[idstr] = cart[idstr] + 1;
+}
+else{
+    cart[idstr]=1;
+}
+console.log(cart);
+localStorage.setItem('cart', JSON.stringify(cart));
+});
+
+</script>
+
+
 <div class="bg-modal" id="myform">
     <div class="modal-content">
 
         <form>
             <div class="row">
                 <h3 style="text-align: left; margin-left: 5px;">Add Address</h3>
-                <i class="far fa-window-close" style="margin-left: auto;margin-right: 15px;font-size: 25px;" id="closeIcon" onclick="closeAddressForm()"></i>
+                <i class="far fa-window-close" style="margin-left: auto;margin-right: 15px;font-size: 25px;"
+                    id="closeIcon" onclick="closeAddressForm()"></i>
                 <!-- <h2 id="closetext" style="rotate: 45deg;">+</h2> -->
             </div>
             <br>
@@ -680,11 +711,13 @@ crossorigin="anonymous"></script>
 
             <input type="text" id="pincode" placeholder="PIN Code" name="fname" style="width: 300px"><br><br>
 
-            <input type="text" id="flatno" placeholder="Flat/House No., Apartment" name="fname" style="width: 300px"><br><br>
+            <input type="text" id="flatno" placeholder="Flat/House No., Apartment" name="fname"
+                style="width: 300px"><br><br>
 
             <input type="text" id="area" placeholder="Area/Colony, Village" name="fname" style="width: 300px"><br><br>
 
-            <input type="text" id="landmark" placeholder="Landmark e.g. Near Reliance" name="fname" style="width: 300px"><br><br>
+            <input type="text" id="landmark" placeholder="Landmark e.g. Near Reliance" name="fname"
+                style="width: 300px"><br><br>
 
             <input type="text" id="city" placeholder="Town/City" name="fname" style="width: 300px"><br><br>
 
@@ -698,7 +731,8 @@ crossorigin="anonymous"></script>
             </select><br><br>
 
             <h4 style="text-align: left;"> Add Delivery Instructions </h4>
-            <p style="text-align: left;">Preferences are used to plan your delivery. However, shipments can sometimes arrive early or later than planned.</p><br>
+            <p style="text-align: left;">Preferences are used to plan your delivery. However, shipments can sometimes
+                arrive early or later than planned.</p><br>
 
             <select name="type" id="type" style="width: 208px">
                 <option value="selecttype">Select Address Type</option>
