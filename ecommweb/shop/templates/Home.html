@@ -71,7 +71,6 @@
 
 {% block js %}
 <script>
-
 if(localStorage.getItem('cart')==null){
     var cart = {};
 }
@@ -101,6 +100,8 @@ console.log(cart);
 //console.log(cart[productName]);
 
 localStorage.setItem('cart', JSON.stringify(cart));
+
+    alert("Product added to cart successfully")
 
 });
 

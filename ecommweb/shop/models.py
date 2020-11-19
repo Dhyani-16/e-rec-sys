@@ -20,16 +20,16 @@ class Product_Detail(models.Model):
     categories_choices = (('Clothing','Clothing'),('Accessories','Accessories'),('Electronics','Electronics'),('Footwear','Footwear'),('Grocery','Grocery'))
     category = models.CharField(max_length=50,choices=categories_choices,default="Clothing")
     
-   # productrating = models.FloatField()
-    rating = {
-            ('1' , '1'),
-            ('2' , '2'),
-            ('3' , '3'),
-            ('4' , '4'),
-            ('5' , '5')
-        }
+    productrating = models.FloatField()
+    # rating = {
+    #         ('1' , '1'),
+    #         ('2' , '2'),
+    #         ('3' , '3'),
+    #         ('4' , '4'),
+    #         ('5' , '5')
+    #     }
 
-    productrating =models.CharField(max_length=100,choices=rating,default='3')
+    # productrating =models.CharField(max_length=100,choices=rating,default='3')
 
     quantity = models.IntegerField()
 
