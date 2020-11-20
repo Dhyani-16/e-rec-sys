@@ -136,12 +136,12 @@
                 <tbody>
                     <tr>
                         <th>
-                            <h4>{{products.product_name}}</h4>
+                            <h4 id="pname{{products.product_id}}">{{products.product_name}}</h4>
                         </th>
 
                     </tr>
                     <tr>
-                        <td>Price : ₹ {{products.price}}</td>
+                        <td id="pprice{{products.product_id}}">₹ {{products.price}}</td>
                     </tr>
                     <!-- <font size="4"> -->
                     <tr>
@@ -684,11 +684,16 @@ crossorigin="anonymous"></script>
         var idstr = this.id.toString();
 
         if (cart[idstr] != undefined) {
-            cart[idstr] = cart[idstr] + 1;
+            cart[idstr][0] = cart[idstr][0] + 1;
             //console.log("This product is already present in your cart!");
         }
         else {
-            cart[idstr] = 1;
+            // fetch other details of product
+            let pname = document.getElementById('pname'+idstr).innerText;
+            let pprice = document.getElementById('pprice'+idstr).innerText;
+            let price = parseFloat(pprice.slice(1,pprice.length))
+
+            cart[idstr] = [1,pname,price];
         }
         //var x=document.getElementById("name").innerHTML;
         //localStorage.setItem("name",x);

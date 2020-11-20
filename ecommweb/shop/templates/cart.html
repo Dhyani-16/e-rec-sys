@@ -1,11 +1,75 @@
-{% extends 'base.html' %} {% load static %} {% block title %} Cart {% endblock %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %} Cart {% endblock %}
+
+
+{% block css %}
+<style>
+    table th {
+        width: auto !important;
+    }
+</style>
+
+{% endblock %}
+
+<body>
+{% block body %}
+
+<div class="container mt-5 " id="maincontainer">
+    <h2 class="text-success">Your cart</h2>
+
+
+<div id="carttable" class="m-4">
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th style="width: 10%;" scope="col">Item</th>
+      <th style="width: 40%;" scope="col">Product Name</th>
+      <th style="width: 10%;" scope="col">Quantity</th>
+      <th style="width: 20%;" scope="col">Price(per piece)</th>
+      <th style="width: 20%;" scope="col">Total Price</th>
+    </tr>
+  </thead>
+  <tbody id = "carttablebody">
+    
+  </tbody>
+</table>
+
+</div>
+
+<div  style="margin-top: 50px;margin-left: 20px;">
+    <h4>Delivery Details </h4>
+
+    {% ifequal defaultAdd 1 %}
+
+    <strong>Deliver to {{ profile.first_name }} {{profile.last_name|truncatechars:10}}</strong><br> Contact: {{ profile.contact_no }}<br> <span id="no1">{{ profile.address1|truncatechars:70 }}</span><br> {{profile.city}}
+    <br> {{ profile.state }}<br>
+    <a href="{% url 'Account' %}" style="color: blue;text-decoration: underline;">Change delivery details</a><br><br>
+    
+    {% else %}
+    
+    <strong>Deliver to {{ profile.first_name2 }} {{profile.last_name2|truncatechars:10}}</strong><br> Contact: {{ profile.contact_no2 }}<br> <span id="no1">{{ profile.address2|truncatechars:70 }}</span><br> {{profile.city2}}
+    <br> {{ profile.state2 }}<br>
+    <a href="{% url 'Account' %}" style="color: blue;text-decoration: underline;">Change delivery details</a><br><br>
+    
+
+    {% endifequal %}
+                
+</div>
+
+</div>
+{% endblock %}
+</body>
 
 <!-- {% for i in cart %}
 i.Product_Detail
 {% endfor %} -->
 {% block js %}
+
 <script>
 
+//  get cart
 if(localStorage.getItem('cart')==null){
     var cart = {};
 }
@@ -15,28 +79,36 @@ else{
 
 }
 
-$('.cart').click(function(){
 
-var idstr = this.id.toString();
 
-if(cart[idstr] != undefined){
-    cart[idstr] = cart[idstr] + 1;
-    //console.log("This product is already present in your cart!");
+// get table body
+let tbody = $('#carttablebody');
+
+// counter used for number of unique products
+let counter =1;
+let total_bill = 0;
+for(var x in cart){
+
+    let quantity = cart[x][0];
+    let name = cart[x][1];
+    let price = cart[x][2];
+    
+    newrow = `<tr><th scope='row'>${counter}</th>
+      <td>${name}</td>
+      <td>${quantity}</td>
+      <td>${price}</td>
+      <td>${price*quantity}</td>
+    </tr>`;
+    total_bill += quantity*price;
+    $(newrow).appendTo(tbody);
+    counter++;
 }
-else{
-    cart[idstr]=1;  
-}
-//var x=document.getElementById("name").innerHTML;
-//localStorage.setItem("name",x);
 
-console.log(cart);
-//console.log(localStorage.getItem("name"));
-//cart[productName] = x;
-//console.log(cart[productName]);
+// show total billing amount
+billing_html = `<h3>Total Billing Amount : <b> ₹ ${total_bill} </b></h3>`;
+$(billing_html).appendTo($('#carttable'))
 
-localStorage.setItem('cart', JSON.stringify(cart));
 
-});
 
 </script>
 {% endblock %}

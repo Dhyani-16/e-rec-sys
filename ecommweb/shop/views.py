@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Product_Detail,Order_detail,Rating_Detail,Product_Review,UsersQuery
 from math import ceil
+from Authentication.models import Profile
 
 # Create your views here.
 
@@ -20,7 +21,12 @@ def shopHome(request):
 
 
 def cart(request):
-    return render(request,'cart.html')
+    if request.user.is_authenticated:
+        user_profile = Profile.objects.get(user=request.user)
+        print(user_profile.default_address_value)    
+        return render(request,'cart.html',{'profile':user_profile,'defaultAdd':user_profile.default_address_value})
+
+    return redirect('LoginUSER')
 
 def contact(request):
     # print("---")
