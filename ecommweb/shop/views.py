@@ -4,6 +4,7 @@ from .models import Product_Detail,Order_detail,Rating_Detail,Product_Review,Use
 from math import ceil
 from Authentication.models import Profile
 from django.db.models import Q
+from django.contrib import messages
 
 # Create your views here.
 
@@ -80,6 +81,9 @@ def productPreview(request,product_id):
 def search(request):
     if request.method == 'GET':
         search = request.GET.get('search')
-        product = Product_Detail.objects.all().filter(Q(product_name__icontains=search) | Q(description__icontains=search))
-        return render(request, 'search.html',{'product':product})
+        product = Product_Detail.objects.all().filter(Q(product_name__icontains=search) | Q(description__icontains=search) | Q(brand__icontains=search))
+        l=len(product)
+        context={'product':product,'search':search}
+        return render(request, 'search.html',context=context)
+        
     
