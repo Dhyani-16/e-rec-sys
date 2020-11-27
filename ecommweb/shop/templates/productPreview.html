@@ -145,7 +145,7 @@
                     </tr>
                     <!-- <font size="4"> -->
                     <tr>
-                        <td>
+                         <td>
                             <p>Rating
                                 {% with ''|center:products.productrating as range %}
                                 {% for i in range %}
@@ -170,7 +170,7 @@
 
             <button class="btn-sm" id='decrement' style='width: 30px;'><b>-</b></button>
             <span>
-                <p id="quantity" class="badge badge-primary">1</p>
+                <p id="quantity" class="badge badge-primary">{{products.quantity}}</p>
             </span>
             <button class="btn-sm" id="increment" style='width: 30px;'><b>+</b> </button>
 
