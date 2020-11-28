@@ -24,11 +24,13 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th style="width: 10%;" scope="col">Item</th>
-      <th style="width: 40%;" scope="col">Product Name</th>
-      <th style="width: 10%;" scope="col">Quantity</th>
+      <th style="width: 5%;" scope="col">Item</th>
+      <th style="width: 40%;" scope="col"> Name</th>
+      <th style="width: 10%;" scope="col">Product Quantity</th>
       <th style="width: 20%;" scope="col">Price(per piece)</th>
       <th style="width: 20%;" scope="col">Total Price</th>
+      
+      <th style="width: 5%;" scope="col">Remove</th>
     </tr>
   </thead>
   <tbody id = "carttablebody">
@@ -80,6 +82,84 @@ else{
 }
 
 
+// remove product from cart
+function removeItemFromCart(id) {
+
+  delete cart[id];
+
+  
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  window.location = "{% url 'Cart' %}"
+
+  
+}
+
+
+
+
+
+
+
+
+
+// changing product quantity
+function resetQuantity(flag,id){
+
+
+
+  if(flag==0){
+
+  let inText = parseInt($('#quantity'+id)[0].innerText);
+
+      if(inText<=1){
+        removeItemFromCart(id);
+
+        
+  $("#totalbillingamount")[0].innerText = parseInt($("#totalbillingamount")[0].innerText) - cart[id][2];
+
+
+
+      }
+      else{
+        
+      cart[id][0]--;
+      $('#quantity'+id)[0].innerText = cart[id][0];
+      $("#totalbillingamount")[0].innerText = parseInt($("#totalbillingamount")[0].innerText) - cart[id][2];
+
+
+      }
+
+
+
+  }else if(flag == 1){
+
+    let inText = parseInt($('#quantity'+id)[0].innerText);
+    cart[id][0]++;
+    $('#quantity'+id)[0].innerText = cart[id][0];
+    
+    $("#totalbillingamount")[0].innerText = parseInt($("#totalbillingamount")[0].innerText) + cart[id][2];
+
+
+  }
+
+
+  $('#totalprice'+id)[0].innerText = cart[id][0] * cart[id][2];
+
+
+
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  
+
+}
+
+
+
+
+
+
+
 
 // get table body
 let tbody = $('#carttablebody');
@@ -92,20 +172,37 @@ for(var x in cart){
     let quantity = cart[x][0];
     let name = cart[x][1];
     let price = cart[x][2];
-    
+
+  
     newrow = `<tr><th scope='row'>${counter}</th>
       <td>${name}</td>
-      <td>${quantity}</td>
+      <td>
+        <div class="row">
+        <i class="badge badge-primary" style="font-size:1rem" onclick="resetQuantity(1,'${x}')">+</i>  
+        
+        
+        <p id="quantity${x}"> ${quantity}</p>
+        
+        <i class="badge badge-primary" style="font-size:1rem" onclick="resetQuantity(0,'${x}')">-</i>
+      </div></td>
       <td>${price}</td>
-      <td>${price*quantity}</td>
+      <td id="totalprice${x}">${price*quantity}</td>
+      <td>
+        <i class="badge badge-danger" style="font-size:1rem" onclick="removeItemFromCart('${x}')">-</i></td>
     </tr>`;
+
+
+
+
+
+
     total_bill += quantity*price;
     $(newrow).appendTo(tbody);
     counter++;
 }
 
 // show total billing amount
-billing_html = `<h3>Total Billing Amount : <b> ₹ ${total_bill} </b></h3>`;
+billing_html = `<h3>Total Billing Amount : <b id="totalbillingamount" >${total_bill} </b></h3>`;
 $(billing_html).appendTo($('#carttable'))
 
 
