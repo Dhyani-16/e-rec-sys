@@ -12,49 +12,53 @@
 </head>
 {% block body %}
 
-<div class="container-fluid m-5">
+<body onload="showHeartColor()">
+    <div class="container-fluid m-5">
 
-    <h1 class="text-secondary">Product Preview</h1>
-    <br>
-    <div class="row">
+        <h1 class="text-secondary">Product Preview</h1>
+        <br>
+        <div class="row">
 
-        <div class="col-md-5">
-            <div class="w3-container">
-                <div class="w3-content w3-display-container">
-                    <img class="mySlides" src="{{products.img1.url}}" style="width:60%">
-                    <!-- <img class="mySlides" src="{% static 'images/2.jpeg' %}" style="width:60%">
+            <div class="col-md-5">
+                <div class="w3-container">
+                    <div class="w3-content w3-display-container">
+                        <img class="mySlides" src="{{products.img1.url}}" style="width:60%">
+                        <!-- <img class="mySlides" src="{% static 'images/2.jpeg' %}" style="width:60%">
                     <img class="mySlides" src="{% static 'images/3.jpeg' %}" style="width:60%"> -->
 
-                    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle"
-                        style="width:80%"></div>
-                    <div class="row">
-                        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-                        <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+                        <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle"
+                            style="width:80%"></div>
+                        <div class="row">
+                            <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+                            <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+                        </div>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white"
+                            onclick="currentDiv(1)"></span>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white"
+                            onclick="currentDiv(2)"></span>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white"
+                            onclick="currentDiv(3)"></span>
                     </div>
-                    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-                    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-                    <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
                 </div>
-            </div>
-            <!--<img class="productimage" src="./girls_pink_shoes.jpeg">-->
-            <button id="wishbtn" onclick="addtowishlist()"><i class='fas fa-heart' id="wishlist"
-                    style='font-size:24px;display: inline;'></i></button>
+                <!--<img class="productimage" src="./girls_pink_shoes.jpeg">-->
+                <button id="wishbtn" onclick="addtowishlist()" class="wish_list"><i class='fas fa-heart' id="wishlist"
+                        style='font-size:24px;display: inline;'></i></button>
 
-            <!--Buy Now & Add to Cart Button-->
-            <button class="btn btn-warning btn-lg mt-5" onclick="deliveryDetails()" style="color: 'white'">
-                <i class="fa fa-shopping-basket"></i><span><a href="#" id="button" style="color: black;">Buy
-                        Now</a></span></button>
-            <button id="{{products.product_id}}" class="btn btn-info btn-lg mt-5 cart"
-                onclick="window.location.reload();">
-                <i class="fa fa-shopping-cart"></i><span>Add
-                    To Cart </span></button>
-
+                <!--Buy Now & Add to Cart Button-->
+                <button class="btn btn-warning btn-lg mt-5" onclick="deliveryDetails()" style="color: 'white'">
+                    <i class="fa fa-shopping-basket"></i><span><a href="#" id="button" style="color: black;">Buy
+                            Now</a></span></button>
+                <button id="{{products.product_id}}" class="btn btn-info btn-lg mt-5 cart"
+                    onclick="window.location.reload();">
+                    <i class="fa fa-shopping-cart"></i><span>Add
+                        To Cart </span></button>
 
 
-            <div class="card p-3 mt-5 mr-5 userrating" style="border-color: orange;border-width: 0.2rem;">
-                <b>How much you like our product:</b>
 
-                <!--<p class="rating">
+                <div class="card p-3 mt-5 mr-5 userrating" style="border-color: orange;border-width: 0.2rem;">
+                    <b>How much you like our product:</b>
+
+                    <!--<p class="rating">
                 <span id='star1' class="fa fa-star"></span>
                 <span id='star2' class="fa fa-star"></span>
                 <span id='star3' class="fa fa-star"></span>
@@ -62,10 +66,10 @@
                 <span id='star5' class="fa fa-star"></span>
             </p>-->
 
-                <!-- Star rating using font awesome -->
+                    <!-- Star rating using font awesome -->
 
 
-                <!-- <fieldset class="rating">
+                    <!-- <fieldset class="rating">
 
                         <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5"
                             title="Awesome - 5 stars"></label>
@@ -89,8 +93,8 @@
                             for="starhalf" title="Sucks big time - 0.5 stars"></label>
                     </fieldset>
                     <p> or </p> -->
-                <span>
-                    <!-- <span id='emoji1' class="emojis">😔</span>
+                    <span>
+                        <!-- <span id='emoji1' class="emojis">😔</span>
                 <span id='emoji2' class="emojis">😟</span>
                 <span id='emoji3' class="emojis">😐</span>
                 <span id='emoji4' class="emojis">😃</span>
@@ -101,216 +105,217 @@
 
                 -->
 
-                    <form id="rating_form" method="POST">
-                        {% csrf_token %}
-                        <p>
-                            <span id='star1' class="fa fa-star"></span>
-                            <span id='star2' class="fa fa-star"></span>
-                            <span id='star3' class="fa fa-star"></span>
-                            <span id='star4' class="fa fa-star"></span>
-                            <span id='star5' class="fa fa-star"></span>
-                        </p>
-                        <input value="1" hidden='true' name='rating'>
-                        <input id="submit" type="submit" class="btn btn-primary small btn-sm" ,style="display: none;">
-                        <!--<button onclick="document.getElementById('prod').value">Submit</button>-->
+                        <form id="rating_form" method="POST">
+                            {% csrf_token %}
+                            <p>
+                                <span id='star1' class="fa fa-star"></span>
+                                <span id='star2' class="fa fa-star"></span>
+                                <span id='star3' class="fa fa-star"></span>
+                                <span id='star4' class="fa fa-star"></span>
+                                <span id='star5' class="fa fa-star"></span>
+                            </p>
+                            <input value="1" hidden='true' name='rating'>
+                            <input id="submit" type="submit" class="btn btn-primary small btn-sm"
+                                ,style="display: none;">
+                            <!--<button onclick="document.getElementById('prod').value">Submit</button>-->
 
-                        <!--<a class="button" href="productPreview.js"> Submit</a>
+                            <!--<a class="button" href="productPreview.js"> Submit</a>
                         value={{p.product_id}}-->
 
-                    </form>
+                        </form>
 
 
+
+
+
+                </div>
 
 
 
             </div>
 
+            <div class="col-md-6" style="font-size: 1.1rem">
 
 
-        </div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>
+                                <h4 id="pname{{products.product_id}}">{{products.product_name}}</h4>
+                            </th>
 
-        <div class="col-md-6" style="font-size: 1.1rem">
+                        </tr>
+                        <tr>
+                            <td id="pprice{{products.product_id}}">₹ {{products.price}}</td>
+                        </tr>
+                        <!-- <font size="4"> -->
+                        <tr>
+                            <td>
+                                <p>Rating
+                                    {% with ''|center:products.productrating as range %}
+                                    {% for i in range %}
+                                    <span class="fa fa-star checked"></span>
+                                    {% endfor %}
+                                    {% endwith %}
+                                    <b>{{products.productrating}}</b>
+
+                                </p>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
-            <table>
-                <tbody>
-                    <tr>
-                        <th>
-                            <h4 id="pname{{products.product_id}}">{{products.product_name}}</h4>
-                        </th>
 
-                    </tr>
-                    <tr>
-                        <td id="pprice{{products.product_id}}">₹ {{products.price}}</td>
-                    </tr>
-                    <!-- <font size="4"> -->
-                    <tr>
-                         <td>
-                            <p>Rating
-                                {% with ''|center:products.productrating as range %}
-                                {% for i in range %}
-                                <span class="fa fa-star checked"></span>
+                <!-- Select quantity of product -->
+
+                <label for="quan">Quantity:</label>
+
+
+                <button class="btn-sm" id='decrement' style='width: 30px;'><b>-</b></button>
+                <span>
+                    <p id="quantity" class="badge badge-primary">{{products.quantity}}</p>
+                </span>
+                <button class="btn-sm" id="increment" style='width: 30px;'><b>+</b> </button>
+
+
+
+                <!-- select size of product -->
+
+                <p></p>
+                <label for="selsize">Select Size:</label>
+                <input type="radio" id="small" name="selsize" value="small">
+                <label for="small">Small</label>
+                <input type="radio" id="medium" name="selsize" value="medium">
+                <label for="medium">Medium</label>
+                <input type="radio" id="large" name="selsize" value="large">
+                <label for="large">Large</label><br><br>
+
+                <!-- Enter pincode here -->
+                <label for="pin">Enter Pincode:</label>
+                <input type="text" id="pin" name="pin"><br>
+
+
+                <div class="card mt-4" style="width:40rem;font-size: 1rem;">
+                    <div class="card-header">
+                        <h4 class="accordion-heading">
+                            Product Details
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="font-size-sm mb-2">Product Information</h6>
+                        <table class="card-table table">
+
+                            <tbody>
+                                <tr>
+                                    <th>Brand</th>
+                                    <td>{{products.brand}}</td>
+                                </tr>
+                                {% for key, value in products.product_specification.items %}
+                                <tr>
+                                    <th>{{key}}</th>
+                                    <td>{{value}}</td>
+                                </tr>
                                 {% endfor %}
-                                {% endwith %}
-                                <b>{{products.productrating}}</b>
 
-                            </p>
+                                <tr>
+                                    <th>Product Description</th>
+                                    <td>{{products.description}}</td>
+                                </tr>
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
+                            </tbody>
+                        </table>
 
 
-            <!-- Select quantity of product -->
-
-            <label for="quan">Quantity:</label>
-
-
-            <button class="btn-sm" id='decrement' style='width: 30px;'><b>-</b></button>
-            <span>
-                <p id="quantity" class="badge badge-primary">{{products.quantity}}</p>
-            </span>
-            <button class="btn-sm" id="increment" style='width: 30px;'><b>+</b> </button>
-
-
-
-            <!-- select size of product -->
-
-            <p></p>
-            <label for="selsize">Select Size:</label>
-            <input type="radio" id="small" name="selsize" value="small">
-            <label for="small">Small</label>
-            <input type="radio" id="medium" name="selsize" value="medium">
-            <label for="medium">Medium</label>
-            <input type="radio" id="large" name="selsize" value="large">
-            <label for="large">Large</label><br><br>
-
-            <!-- Enter pincode here -->
-            <label for="pin">Enter Pincode:</label>
-            <input type="text" id="pin" name="pin"><br>
-
-
-            <div class="card mt-4" style="width:40rem;font-size: 1rem;">
-                <div class="card-header">
-                    <h4 class="accordion-heading">
-                        Product Details
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <h6 class="font-size-sm mb-2">Product Information</h6>
-                    <table class="card-table table">
-
-                        <tbody>
-                            <tr>
-                                <th>Brand</th>
-                                <td>{{products.brand}}</td>
-                            </tr>
-                            {% for key, value in products.product_specification.items %}
-                            <tr>
-                                <th>{{key}}</th>
-                                <td>{{value}}</td>
-                            </tr>
-                            {% endfor %}
-
-                            <tr>
-                                <th>Product Description</th>
-                                <td>{{products.description}}</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-
-                    <!--<h6 class="font-size-sm mb-2">Product Description</h6>
+                        <!--<h6 class="font-size-sm mb-2">Product Description</h6>
                     <ul class="font-size-sm pl-4 mb-0">
                         <p>{{products.description}}
                         </p>-->
-                    </ul>
+                        </ul>
+                    </div>
+
                 </div>
 
+
+
             </div>
 
-
-
-        </div>
-
-        <!-- <div class="col-md-2">
+            <!-- <div class="col-md-2">
 
             </div> -->
-    </div>
+        </div>
 
 
 
 
-    <!-- Product name brand and rating -->
+        <!-- Product name brand and rating -->
 
-    <!-- Product details in form of table -->
-    <br><br>
-
-
-    <br>
-    <hr>
+        <!-- Product details in form of table -->
+        <br><br>
 
 
-    <h2>Have a question?</h2>
-    <p>Post your question below:</p>
+        <br>
+        <hr>
 
-    <input placeholder="Post your question here" name="postquestion" style="width: 300px;">
-    <a class="button" href="#popup1">
-        Submit
-    </a>
-    <div id="popup1" class="overlay">
-        <div class="popup">
-            <h2>Thank You!</h2>
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-                We Will Be Pleased To Help You. Your Question Will Be Answered Soon...
+
+        <h2>Have a question?</h2>
+        <p>Post your question below:</p>
+
+        <input placeholder="Post your question here" name="postquestion" style="width: 300px;">
+        <a class="button" href="#popup1">
+            Submit
+        </a>
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <h2>Thank You!</h2>
+                <a class="close" href="#">&times;</a>
+                <div class="content">
+                    We Will Be Pleased To Help You. Your Question Will Be Answered Soon...
+                </div>
             </div>
         </div>
-    </div>
-    <br>
-    <!--<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <br>
+        <!--<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
     View FAQ here
     </a>-->
 
-    <div>
-        <h2>FAQs:</h2>
-        <!--<p>Click on the button to toggle between showing and hiding content.</p>-->
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">
-            How much amount of monthly EMI for this mobile?
-        </button>
-        <div id="demo" class="collapse">
-            <a
-                href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms">
-                Monthly EMI for this product is Rs. 7500/-
-            </a>
+        <div>
+            <h2>FAQs:</h2>
+            <!--<p>Click on the button to toggle between showing and hiding content.</p>-->
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">
+                How much amount of monthly EMI for this mobile?
+            </button>
+            <div id="demo" class="collapse">
+                <a
+                    href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms">
+                    Monthly EMI for this product is Rs. 7500/-
+                </a>
+            </div>
+            <br>
+            <br>
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">
+                How to login with google?
+            </button>
+            <div id="demo1" class="collapse">
+                <a href="https://support.google.com/accounts/answer/76194?hl=en">
+                    It's simple! Just enter your emailid and the password associated with it to successfully login to
+                    Google...
+                </a>
+            </div>
+            <br>
+            <br>
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">
+                How to buy prime membership?
+            </button>
+            <div id="demo2" class="collapse">
+                <a href="https://www.primevideo.com/?ref_=dvm_pds_amz_in_as_s_g_51|m_YNcN9OVnc_c394383628230">
+                    Just go to Amazon and from the drawer, click on Go Prime!
+                </a>
+            </div>
         </div>
-        <br>
-        <br>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">
-            How to login with google?
-        </button>
-        <div id="demo1" class="collapse">
-            <a href="https://support.google.com/accounts/answer/76194?hl=en">
-                It's simple! Just enter your emailid and the password associated with it to successfully login to
-                Google...
-            </a>
-        </div>
-        <br>
-        <br>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">
-            How to buy prime membership?
-        </button>
-        <div id="demo2" class="collapse">
-            <a href="https://www.primevideo.com/?ref_=dvm_pds_amz_in_as_s_g_51|m_YNcN9OVnc_c394383628230">
-                Just go to Amazon and from the drawer, click on Go Prime!
-            </a>
-        </div>
-    </div>
 
-    <!-- <div id="collapseExample" class="collapse">
+        <!-- <div id="collapseExample" class="collapse">
         <div id="questions" class="questionlist">
             <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 How much amount of monthly EMI for this mobile?
@@ -344,7 +349,7 @@
     </div> -->
 
 
-    <hr>
+        <hr>
 
 
 
@@ -352,249 +357,263 @@
 
 
 
-    <!-- Review on product -->
-    <br>
-    <h2>Reviews</h2>
-    <div>
-        <form id="reviews_form" method="POST">
-            {% csrf_token %}
-            <!--CSRF : Cross Site Request Forgery-->
+        <!-- Review on product -->
+        <br>
+        <h2>Reviews</h2>
+        <div>
+            <form id="reviews_form" method="POST">
+                {% csrf_token %}
+                <!--CSRF : Cross Site Request Forgery-->
 
-            <input class="addreview" id="review" type="text" name="review" style="width: 300px"
-                placeholder="Add your reviews    ">
-            <!-- <input id="submit" type="submit" class="btn btn-primary small btn-sm" style="display: block;"> -->
+                <input class="addreview" id="review" type="text" name="review" style="width: 300px"
+                    placeholder="Add your reviews    ">
+                <!-- <input id="submit" type="submit" class="btn btn-primary small btn-sm" style="display: block;"> -->
 
-            <!--<button type="submit" class="button"><span>Submit</span></button>-->
-            <button class="btn btn-primary">Submit</button>
+                <!--<button type="submit" class="button"><span>Submit</span></button>-->
+                <button class="btn btn-primary">Submit</button>
 
-        </form>
-    </div>
+            </form>
+        </div>
 
-    <br>
-    <div class="reviewbox">
+        <br>
+        <div class="reviewbox">
 
-        {% load static %}
-        {% load humanize %}
+            {% load static %}
+            {% load humanize %}
 
-        {% for i in review reversed %}
-
-
+            {% for i in review reversed %}
 
 
-        <div class="row">
 
 
-            <!-- image of user -->
-            <div>
-                <p>
-                    <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;"></p>
-            </div>
+            <div class="row">
 
-            <!-- Content into review box -->
-            <div class="reviewboxcontent col-md-3">
+
+                <!-- image of user -->
                 <div>
-                    <p class="badge badge-secondary" style="display: inline;">{{i.review_user_id}}</p>
+                    <p>
+                        <img class="userimg" src="{% static 'images/myuser.png' %}" style="height: 50px;"></p>
+                </div>
+
+                <!-- Content into review box -->
+                <div class="reviewboxcontent col-md-3">
+                    <div>
+                        <p class="badge badge-secondary" style="display: inline;">{{i.review_user_id}}</p>
+
+                    </div>
+
+                    <p>{{i.message}}</p>
+                    <p style="font-size: 13px; color:'grey'">Reviewed : {{i.reviewTime|naturaltime}}</h6>
 
                 </div>
 
-                <p>{{i.message}}</p>
-                <p style="font-size: 13px; color:'grey'">Reviewed : {{i.reviewTime|naturaltime}}</h6>
-
             </div>
+
+            {% endfor %}
 
         </div>
 
-        {% endfor %}
-
-    </div>
 
 
-
-    <!-- other products slider -->
+        <!-- other products slider -->
 
 
 
-    <h2>Other related products</h2>
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <h2>Other related products</h2>
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 
-        <!-- <ol class="carousel-indicators">
+            <!-- <ol class="carousel-indicators">
               <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
               <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
             </ol> -->
-        <div class="carousel-inner" style="margin-left: 7px;">
+            <div class="carousel-inner" style="margin-left: 7px;">
 
 
-            <div class="carousel-item active">
+                <div class="carousel-item active">
 
-                <div class="row">
+                    <div class="row">
 
 
 
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">1)Spike Shoes</h5>
-                            <p class="card-text">Price : $8999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">1)Spike Shoes</h5>
+                                <p class="card-text">Price : $8999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">2)Spike Shoes</h5>
+                                <p class="card-text">Price : $9999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">3)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">4)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">5)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="carousel-item">
+                    <div class="row">
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">6)Spike Shoes</h5>
+                                <p class="card-text">Price : $8999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">7)Spike Shoes</h5>
+                                <p class="card-text">Price : $7000</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">8)Spike Shoes</h5>
+                                <p class="card-text">Price : $7000</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">9)Spike Shoes</h5>
+                                <p class="card-text">Price : $1999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
+                        </div>
+
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">10)Spike Shoes</h5>
+                                <p class="card-text">Price : $5999</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
                         </div>
                     </div>
 
 
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">2)Spike Shoes</h5>
-                            <p class="card-text">Price : $9999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
+                </div>
+
+
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images./girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">11)Spike Shoes</h5>
+                                <p class="card-text">Price : $1</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">3)Spike Shoes</h5>
-                            <p class="card-text">Price : $1999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
+
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">12)Spike Shoes</h5>
+                                <p class="card-text">Price : $809</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">4)Spike Shoes</h5>
-                            <p class="card-text">Price : $1999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
-
-
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">5)Spike Shoes</h5>
-                            <p class="card-text">Price : $1999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
+                        <div class="card mr-2" style="width: 13rem;">
+                            <img src="{% static 'images/girls_pink_shoes.jpeg' %}"
+                                class="card-img-center ml-4 productimg">
+                            <div class="card-body pt-0">
+                                <h5 class="card-title">13)Spike Shoes</h5>
+                                <p class="card-text">Price : $8099</p>
+                                <a href="#" class="btn btn-outline-secondary">Preview</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
-
-
-            <div class="carousel-item">
-                <div class="row">
-
-
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">6)Spike Shoes</h5>
-                            <p class="card-text">Price : $8999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
-
-
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">7)Spike Shoes</h5>
-                            <p class="card-text">Price : $7000</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
-
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">8)Spike Shoes</h5>
-                            <p class="card-text">Price : $7000</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
-
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">9)Spike Shoes</h5>
-                            <p class="card-text">Price : $1999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
-
-
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">10)Spike Shoes</h5>
-                            <p class="card-text">Price : $5999</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
 
 
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images./girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">11)Spike Shoes</h5>
-                            <p class="card-text">Price : $1</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
 
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="fas fa-chevron-circle-left" aria-hidden="true" style="font-size: 28px;color:black"></span>
 
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">12)Spike Shoes</h5>
-                            <p class="card-text">Price : $809</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="fas fa-chevron-circle-right" aria-hidden="true" style="font-size: 28px;color:black"></span>
 
-
-                    <div class="card mr-2" style="width: 13rem;">
-                        <img src="{% static 'images/girls_pink_shoes.jpeg' %}" class="card-img-center ml-4 productimg">
-                        <div class="card-body pt-0">
-                            <h5 class="card-title">13)Spike Shoes</h5>
-                            <p class="card-text">Price : $8099</p>
-                            <a href="#" class="btn btn-outline-secondary">Preview</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <span class="sr-only">Next</span>
+            </a>
 
 
         </div>
 
 
 
-        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-            <span class="fas fa-chevron-circle-left" aria-hidden="true" style="font-size: 28px;color:black"></span>
-
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-            <span class="fas fa-chevron-circle-right" aria-hidden="true" style="font-size: 28px;color:black"></span>
-
-            <span class="sr-only">Next</span>
-        </a>
-
 
     </div>
-
-
-
-
-</div>
+</body>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -689,18 +708,16 @@ crossorigin="anonymous"></script>
 
         if (cart[idstr] != undefined) {
             cart[idstr][0] = cart[idstr][0] + 1;
-            //console.log("This product is already present in your cart!");
         }
         else {
             // fetch other details of product
-            let pname = document.getElementById('pname'+idstr).innerText;
-            let pprice = document.getElementById('pprice'+idstr).innerText;
-            let price = parseFloat(pprice.slice(1,pprice.length))
+            let pname = document.getElementById('pname' + idstr).innerText;
+            let pprice = document.getElementById('pprice' + idstr).innerText;
+            let price = parseFloat(pprice.slice(1, pprice.length))
 
-            cart[idstr] = [1,pname,price];
+            cart[idstr] = [1, pname, price];
         }
-        //var x=document.getElementById("name").innerHTML;
-        //localStorage.setItem("name",x);
+
 
         console.log(cart);
         //console.log(localStorage.getItem("name"));
@@ -712,6 +729,75 @@ crossorigin="anonymous"></script>
         alert("Product added to cart successfully")
 
     });
+
+</script>
+<script>
+    // localStorage.clear();
+    var flag = 0;
+    function addtowishlist() {
+
+        var product_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+
+        console.log(localStorage.getItem("wish_list"));
+
+        if (localStorage.getItem('wish_list') == null) {
+            var wish_list = {};
+           
+        }
+        else {
+            wish_list = JSON.parse(localStorage.getItem('wish_list'));
+           
+        }
+        if (wishlist[product_id] == undefined) {
+            wishlist[product_id] = flag;
+       
+        }
+       
+
+            
+
+        var heart = document.getElementById('wishlist');
+        if (flag == 0) {
+
+            heart.style.color = 'red'
+            flag = 1;
+            wish_list[product_id] = flag;
+        }
+        else if (flag == 1) {
+            heart.style.color = 'gray'
+            flag = 0;
+           
+            wish_list[product_id] = 0;
+        }
+        localStorage.setItem('wish_list', JSON.stringify(wish_list));
+       
+    }
+    function showHeartColor() {
+        var product_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+
+        if (localStorage.getItem('wish_list') == null) {
+
+        }
+        else {
+            wish_list = JSON.parse(localStorage.getItem('wish_list'));
+           
+            var heart = document.getElementById('wishlist');
+
+
+            if (product_id in wish_list) {
+
+                if (wish_list[product_id] == 1) {
+                    heart.style.color = 'red'
+                }
+                else {
+                    heart.style.color = 'gray'
+                }
+
+            } else {
+                heart.style.color = 'gray'
+            }
+        }
+    }
 
 </script>
 

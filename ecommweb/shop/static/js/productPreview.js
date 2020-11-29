@@ -21,7 +21,7 @@ document.getElementById('decrement').addEventListener('click',function () {
 
 })
 
-function addtowishlist() {
+/*function addtowishlist() {
 
   let heart = document.getElementById('wishlist')
   if (heart.style.color =='gray'){
@@ -32,7 +32,7 @@ function addtowishlist() {
       heart.style.color = 'gray'
   }
 
-}
+}*/
 
 // function make_it_orange(id) {
 
