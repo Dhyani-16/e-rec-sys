@@ -90,6 +90,7 @@
 //  get cart from localstorage
 if(localStorage.getItem('cart')==null){
     var cart = {};
+    console.log("cart is empty")
 
     // if cart is empty then replace body html with emptyhtml
     emptyHtml = `    <div class="container " style="margin-left: 40%; text-align: center; margin-top: 20%;">
@@ -105,7 +106,7 @@ if(localStorage.getItem('cart')==null){
                       </div>`;
 
       // use jQuery replaceWith() function to replace html                
-      $('#maincontainer').replaceWith(emptyHtml)
+      $('#maincontainer').replaceWith(emptyHtml);
 }
 else{
  
@@ -118,23 +119,26 @@ else{
 // remove product from cart
 function removeItemFromCart(id) {
 
+  
+  // delete item from cart
+  delete cart[id];
+  
   // flag is used to find whether cart is empty or not ?
   
   let flag=0;
+
   for(var i in cart){
       flag++;
   }
   // if flag is remain 0 then removeItem from localstorage bcz cart is empty
   if(flag<=0){ 
     localStorage.removeItem('cart');
+    console.log("Cart removed")
   }
-  
-  // delete item from cart
-  delete cart[id];
-  localStorage.setItem('cart', JSON.stringify(cart));
-  window.location = "{% url 'Cart' %}"
 
   
+  console.log("Flag value : ",flag)
+  window.location = "{% url 'Cart' %}"
 }
 
 
