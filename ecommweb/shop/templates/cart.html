@@ -134,6 +134,11 @@ function removeItemFromCart(id) {
   if(flag<=0){ 
     localStorage.removeItem('cart');
     console.log("Cart removed")
+  }else{
+
+    
+  localStorage.setItem('cart', JSON.stringify(cart));
+  
   }
 
   
