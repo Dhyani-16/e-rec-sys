@@ -40,16 +40,13 @@ def about(request):
 def productPreview(request,product_id):
 
     products = Product_Detail.objects.filter(product_id=product_id)[0]
-    reviews = Product_Review.objects.filter(review_product_id=product_id)
     
-    context = {'current_product_id' : product_id, 'review' : reviews, 'products' : products}
-
+    questions = UsersQuery.objects.all()[:3]
+    
+    reviews = Product_Review.objects.filter(review_product_id=product_id)
+    context = {'current_product_id' : product_id, 'review' : reviews, 'products' : products,'questions':questions}
     if request.method=="POST":
         
-        #uname= request.POST.get('uname', '')
-        #rating = request.POST.get('rating', rating)
-        #product_id = request.POST.get('product_id', '')
-
         print("Product id",products)
         product_id = products
         
@@ -74,6 +71,16 @@ def productPreview(request,product_id):
                 review_user_id = request.user,
                 review_product_id = product_id,
                 message = review )
+
+
+        elif request.POST['formtype']=="FAQ":
+            q = request.POST['postquestion']
+            
+            UsersQuery.objects.create( query_product_id= products , 
+                query_user_id = request.user,
+                question=q,answer="",likes=0  )
+
+
 
    
     return render(request,'productPreview.html' , context=context)

@@ -262,14 +262,21 @@
         <h2>Have a question?</h2>
         <p>Post your question below:</p>
 
-        <input placeholder="Post your question here" name="postquestion" style="width: 300px;">
-        <a class="button" href="#popup1">
-            Submit
-        </a>
+
+        <form id="postquestionform" method="POST" action="/productDetail/{{products.product_id}}">
+            {% csrf_token %}
+            <input placeholder="Post your question here" name="postquestion" style="width: 300px;">
+            
+            <input name="formtype" style="width: 300px;" value="FAQ" hidden="True">
+            <input class="button" type="submit">
+            
+            
+        </form>
+        
         <div id="popup1" class="overlay">
             <div class="popup">
                 <h2>Thank You!</h2>
-                <a class="close" href="#">&times;</a>
+                <a id="popup1close" class="close" href="#">&times;</a>
                 <div class="content">
                     We Will Be Pleased To Help You. Your Question Will Be Answered Soon...
                 </div>
@@ -282,72 +289,25 @@
 
         <div>
             <h2>FAQs:</h2>
-            <!--<p>Click on the button to toggle between showing and hiding content.</p>-->
-            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">
-                How much amount of monthly EMI for this mobile?
+            
+            {% for q in questions %}
+            
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo{{q.srNo}}">
+                {{q.question}}
             </button>
-            <div id="demo" class="collapse">
+            <div id="demo{{q.srNo}}" class="collapse">
                 <a
                     href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms">
-                    Monthly EMI for this product is Rs. 7500/-
+                  {{  q.answer }}
                 </a>
             </div>
             <br>
             <br>
-            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">
-                How to login with google?
-            </button>
-            <div id="demo1" class="collapse">
-                <a href="https://support.google.com/accounts/answer/76194?hl=en">
-                    It's simple! Just enter your emailid and the password associated with it to successfully login to
-                    Google...
-                </a>
-            </div>
-            <br>
-            <br>
-            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">
-                How to buy prime membership?
-            </button>
-            <div id="demo2" class="collapse">
-                <a href="https://www.primevideo.com/?ref_=dvm_pds_amz_in_as_s_g_51|m_YNcN9OVnc_c394383628230">
-                    Just go to Amazon and from the drawer, click on Go Prime!
-                </a>
-            </div>
+            {% endfor %}
+            
         </div>
 
-        <!-- <div id="collapseExample" class="collapse">
-        <div id="questions" class="questionlist">
-            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                How much amount of monthly EMI for this mobile?
-            </a>
-            <div id="collapseExample" class="collapse"></div>
-                <div id="answers">
-                    <a href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms" class="answerlist1">
-                        Monthly EMI for this product is Rs. 7500/-
-                    </a>
-                    <div id="collapseExample" class="collapse"></div>
-                </div>
-            <br>
-            <a class="questionlist">How to login with google?</a>
-            <div id="collapseExample" class="collapse"></div>
-             <div id="answers">
-                    <a href="https://support.google.com/accounts/answer/76194?hl=en" class="answerlist2">
-                        Monthly EMI for this product is Rs. 7500/-
-                    </a>
-                    <div id="collapseExample" class="collapse"></div>
-            </div>
-            <br>
-            <a class="questionlist">How to buy prime membership?</a>
-            <div id="collapseExample" class="collapse"></div>
-             <div id="answers">
-                    <a href="https://www.primevideo.com/?ref_=dvm_pds_amz_in_as_s_g_51|m_YNcN9OVnc_c394383628230" class="answerlist3">
-                        Monthly EMI for this product is Rs. 7500/-
-                    </a>
-                    <div id="collapseExample" class="collapse"></div>
-            </div>
-        </div>
-    </div> -->
-
+ 
 
         <hr>
 
@@ -367,10 +327,8 @@
 
                 <input class="addreview" id="review" type="text" name="review" style="width: 300px"
                     placeholder="Add your reviews    ">
-                <!-- <input id="submit" type="submit" class="btn btn-primary small btn-sm" style="display: block;"> -->
 
-                <!--<button type="submit" class="button"><span>Submit</span></button>-->
-                <button class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary">Submit</button>
 
             </form>
         </div>
@@ -422,11 +380,6 @@
         <h2>Other related products</h2>
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 
-            <!-- <ol class="carousel-indicators">
-              <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol> -->
             <div class="carousel-inner" style="margin-left: 7px;">
 
 
@@ -615,35 +568,15 @@
     </div>
 </body>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script> -->
-
-
-<!-- JS to handle operations -->
-<!--<script src="https://code.jquery.com/jquery-3.5.0.min.js"  
-integrity="sha256-xNzNa4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ" crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
-crossorigin="anonymous"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>-->
 
 <script src="{% static 'js/productPreview.js' %}">
 </script>
 
 <script>
+
+
+
+
     $(document).on('submit', '#rating_form', function (event) {
 
         event.preventDefault();

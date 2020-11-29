@@ -4,16 +4,26 @@
 
 
 {% block css %}
+
 <style>
-    table th {
-        width: auto !important;
-    }
+  table th {
+      width: auto !important;
+  }
+  .changepointer{
+
+    cursor: pointer;
+  }
 </style>
 
 {% endblock %}
 
 <body>
+  
+
 {% block body %}
+
+
+
 
 <div class="container mt-5 " id="maincontainer">
     <h2 class="text-success">My cart</h2>
@@ -25,8 +35,8 @@
   <thead class="thead-dark">
     <tr>
       <th style="width: 5%;" scope="col">Item</th>
-      <th style="width: 40%;" scope="col"> Name</th>
-      <th style="width: 10%;" scope="col">Product Quantity</th>
+      <th style="width: 35%;" scope="col">Product Name</th>
+      <th style="width: 15%;" scope="col">Quantity</th>
       <th style="width: 20%;" scope="col">Price(per piece)</th>
       <th style="width: 20%;" scope="col">Total Price</th>
       
@@ -37,6 +47,8 @@
     
   </tbody>
 </table>
+
+<button class="btn btn-warning" onclick="clearCart()" style="margin-left:90%;margin-right:10px">Clear Cart</button>
 
 </div>
 
@@ -57,25 +69,46 @@
     
 
     {% endifequal %}
-                
+
 </div>
+
+
+
+
+
 
 </div>
 {% endblock %}
 </body>
 
-<!-- {% for i in cart %}
-i.Product_Detail
-{% endfor %} -->
 {% block js %}
 
 <script>
 
-//  get cart
+
+
+//  get cart from localstorage
 if(localStorage.getItem('cart')==null){
     var cart = {};
+
+    // if cart is empty then replace body html with emptyhtml
+    emptyHtml = `    <div class="container " style="margin-left: 40%; text-align: center; margin-top: 20%;">
+                      <div class="card bg-light" style="max-width: 18rem;">
+                          <div class="card-body">
+                            <h5 class="card-title">Your Cart Is Empty!</h5>
+                            <p class="card-text">To Add Items, Shop Now By Clicking Here</p>
+                          </div>
+
+                          
+                      <a href="{% url 'shopHome' %}" class="btn btn-outline-info">Shop Now</a>
+                        </div>
+                      </div>`;
+
+      // use jQuery replaceWith() function to replace html                
+      $('#maincontainer').replaceWith(emptyHtml)
 }
 else{
+ 
     cart = JSON.parse(localStorage.getItem('cart'));
     document.getElementById("cart").innerHTML = Object.keys(cart).length;
 
@@ -85,33 +118,43 @@ else{
 // remove product from cart
 function removeItemFromCart(id) {
 
-  delete cart[id];
-
+  // flag is used to find whether cart is empty or not ?
   
+  let flag=0;
+  for(var i in cart){
+      flag++;
+  }
+  // if flag is remain 0 then removeItem from localstorage bcz cart is empty
+  if(flag<=0){ 
+    localStorage.removeItem('cart');
+  }
+  
+  // delete item from cart
+  delete cart[id];
   localStorage.setItem('cart', JSON.stringify(cart));
-
   window.location = "{% url 'Cart' %}"
 
   
 }
 
 
+// clear cart from localStorage
+function clearCart() {
 
-
-
-
-
+  localStorage.removeItem('cart');
+  window.location = "{% url 'Cart' %}"
+  
+}
 
 
 // changing product quantity
 function resetQuantity(flag,id){
 
-
-
+  // flag 0 mean decrement quantity 
+  // flag 1 mean increment quantity 
+  
   if(flag==0){
-
   let inText = parseInt($('#quantity'+id)[0].innerText);
-
       if(inText<=1){
         removeItemFromCart(id);
 
@@ -178,17 +221,17 @@ for(var x in cart){
       <td>${name}</td>
       <td>
         <div class="row">
-        <i class="badge badge-primary" style="font-size:1rem" onclick="resetQuantity(1,'${x}')">+</i>  
+        <i class="badge badge-primary  changepointer" style="font-size:1rem;height:25px;width:25px;cursor: pointer;" onclick="resetQuantity(1,'${x}')">+</i>  
         
         
-        <p id="quantity${x}"> ${quantity}</p>
+        <p class="mx-2" id="quantity${x}"> ${quantity}</p>
         
-        <i class="badge badge-primary" style="font-size:1rem" onclick="resetQuantity(0,'${x}')">-</i>
+        <i class="badge badge-primary  changepointer" style="font-size:1rem;height:25px;width:25px;cursor: pointer;" onclick="resetQuantity(0,'${x}')">-</i>
       </div></td>
       <td>${price}</td>
       <td id="totalprice${x}">${price*quantity}</td>
       <td>
-        <i class="badge badge-danger" style="font-size:1rem" onclick="removeItemFromCart('${x}')">-</i></td>
+        <i class="badge badge-danger changepointer" style="font-size:1rem;cursor: pointer;height:25px;width:25px;" onclick="removeItemFromCart('${x}')">-</i></td>
     </tr>`;
 
 
@@ -200,6 +243,8 @@ for(var x in cart){
     $(newrow).appendTo(tbody);
     counter++;
 }
+
+
 
 // show total billing amount
 billing_html = `<h3>Total Billing Amount : <b id="totalbillingamount" >${total_bill} </b></h3>`;
