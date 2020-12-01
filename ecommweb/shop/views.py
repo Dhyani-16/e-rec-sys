@@ -5,8 +5,6 @@ from math import ceil
 from Authentication.models import Profile
 from django.db.models import Q
 from django.contrib import messages
-from json import dumps
-#from django.utils import simplejson
 
 # Create your views here.
 
@@ -50,7 +48,6 @@ def productPreview(request,product_id):
     field='body'
 
     wishlist_prod = Wishlist.objects.filter(wishlist_user_id=request.user).values_list('wishlist_product_id', flat=True)[:]
-    #.get(pk=1)
 
     dict = {}
     for i in wishlist_prod:
@@ -97,7 +94,6 @@ def productPreview(request,product_id):
 
         elif request.POST['formtype'] == "wishlist":
             x=int(request.POST['flag'])
-            print("x:",x)
             
             if x==1:
                 Wishlist.objects.create(

@@ -333,7 +333,7 @@
                 <input class="addreview" id="review" type="text" name="review" style="width: 300px"
                     placeholder="Add your reviews    ">
 
-                <button class="btn btn-primary"  onclick="window.location.href=window.location.href" >Submit</button>
+                <button class="btn btn-primary" onclick="window.location.href=window.location.href">Submit</button>
 
             </form>
         </div>
@@ -670,34 +670,31 @@
 
 <script>
     //console.log('{{wishlist_prod|safe}}');
-    var product_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 
-    var flag=0;
+    var flag = 0;
     var product = {};
     var i;
     product = '{{wishlist_prod|safe}}';
     for (i = 0; i < product.length; i++) {
-        if (product_id == product[i]) {
-            flag=1;
+        if ('{{current_product_id}}' == product[i]) {
+            flag = 1;
         }
     }
-    
+
     function addtowishlist() {
         var heart = document.getElementById('wishlist');
         console.log(product);
 
-        if (flag==1) {
+        if (flag == 1) {
             console.log("red to gray");
             heart.style.color = 'gray'
             flag = 0;
-            //product[product_id] = flag;
         }
-        else if (flag==0) {
+        else if (flag == 0) {
             heart.style.color = 'red'
             console.log("gray to red")
             flag = 1;
 
-            //product[product_id] = 0;
         }
     }
 
@@ -706,7 +703,6 @@
 
 <script>
     function showHeartColor() {
-        var product_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
         var product = {};
         product = '{{wishlist_prod|safe}}';
 
@@ -719,7 +715,7 @@
             var i = 0;
 
             for (i = 0; i < product.length; i++) {
-                if (product_id == product[i]) {
+                if ('{{current_product_id}}' == product[i]) {
                     heart.style.color = 'red';
                 }
 
@@ -741,18 +737,19 @@
             url: '/productDetail/{{current_product_id}}',
             data: {
                 formtype: "wishlist",
-                flag : flag,
+                flag: flag,
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
 
             success: function (response) {
 
-                if(flag == '1'){
-                alert("Product added to wishlist successfully");}
-                else{
-                    alert("Product removed from wishlist successfully");   
+                if (flag == '1') {
+                    alert("Product added to wishlist successfully");
                 }
-                
+                else {
+                    alert("Product removed from wishlist successfully");
+                }
+
             }
         });
     })
