@@ -43,7 +43,7 @@ def productPreview(request,product_id):
 
     products = Product_Detail.objects.filter(product_id=product_id)[0]
     
-    questions = UsersQuery.objects.all()[:3]
+    questions = UsersQuery.objects.filter(query_product_id=product_id)
     
     reviews = Product_Review.objects.filter(review_product_id=product_id)
 
