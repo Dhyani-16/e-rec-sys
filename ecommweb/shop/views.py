@@ -29,7 +29,6 @@ def cart(request):
         print(user_profile.default_address_value)  
         context={'profile':user_profile,'defaultAdd':user_profile.default_address_value}
         if request.method=="POST":
-            # if request.POST['formtype'] == "place":
                 
                 amount = request.POST['amount']
                 print(f"amount :{amount}")
