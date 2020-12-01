@@ -11,6 +11,7 @@
 
 </head>
 {% block body %}
+<!---->
 
 <body onload="showHeartColor()">
     <div class="container-fluid m-5">
@@ -41,9 +42,13 @@
                     </div>
                 </div>
                 <!--<img class="productimage" src="./girls_pink_shoes.jpeg">-->
-                <button id="wishbtn" onclick="addtowishlist()" class="wish_list"><i class='fas fa-heart' id="wishlist"
-                        style='font-size:24px;display: inline;'></i></button>
 
+                <form id="wishlist_form">
+                    {% csrf_token %}
+                    <button id="wishbtn" onclick="addtowishlist()" class="wish_list" name="wishbtn">
+                        <i class='fas fa-heart' id="wishlist" style='font-size:24px;display: inline;'></i></button>
+
+                </form>
                 <!--Buy Now & Add to Cart Button-->
                 <button class="btn btn-warning btn-lg mt-5" onclick="deliveryDetails()" style="color: 'white'">
                     <i class="fa fa-shopping-basket"></i><span><a href="#" id="button" style="color: black;">Buy
@@ -266,13 +271,13 @@
         <form id="postquestionform" method="POST" action="/productDetail/{{products.product_id}}">
             {% csrf_token %}
             <input placeholder="Post your question here" name="postquestion" style="width: 300px;">
-            
+
             <input name="formtype" style="width: 300px;" value="FAQ" hidden="True">
             <input class="button" type="submit">
-            
-            
+
+
         </form>
-        
+
         <div id="popup1" class="overlay">
             <div class="popup">
                 <h2>Thank You!</h2>
@@ -289,25 +294,25 @@
 
         <div>
             <h2>FAQs:</h2>
-            
+
             {% for q in questions %}
-            
+
             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo{{q.srNo}}">
                 {{q.question}}
             </button>
             <div id="demo{{q.srNo}}" class="collapse">
                 <a
                     href="https://economictimes.indiatimes.com/analysis/what-is-emi-and-how-is-it-calculated/articleshow/39880530.cms">
-                  {{  q.answer }}
+                    {{  q.answer }}
                 </a>
             </div>
             <br>
             <br>
             {% endfor %}
-            
+
         </div>
 
- 
+
 
         <hr>
 
@@ -328,7 +333,7 @@
                 <input class="addreview" id="review" type="text" name="review" style="width: 300px"
                     placeholder="Add your reviews    ">
 
-                    <button class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary">Submit</button>
 
             </form>
         </div>
@@ -340,8 +345,6 @@
             {% load humanize %}
 
             {% for i in review reversed %}
-
-
 
 
             <div class="row">
@@ -664,75 +667,98 @@
     });
 
 </script>
+
 <script>
-    // localStorage.clear();
-    var flag = 0;
+    //console.log('{{wishlist_prod|safe}}');
+    var product_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+
+    var flag=0;
+    var product = {};
+    var i;
+    product = '{{wishlist_prod|safe}}';
+    for (i = 0; i < product.length; i++) {
+        if (product_id == product[i]) {
+            flag=1;
+        }
+    }
+    
     function addtowishlist() {
-
-        var product_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-
-        console.log(localStorage.getItem("wish_list"));
-
-        if (localStorage.getItem('wish_list') == null) {
-            var wish_list = {};
-           
-        }
-        else {
-            wish_list = JSON.parse(localStorage.getItem('wish_list'));
-           
-        }
-        if (wishlist[product_id] == undefined) {
-            wishlist[product_id] = flag;
-       
-        }
-       
-
-            
-
         var heart = document.getElementById('wishlist');
-        if (flag == 0) {
+        console.log(product);
 
-            heart.style.color = 'red'
-            flag = 1;
-            wish_list[product_id] = flag;
-        }
-        else if (flag == 1) {
+        if (flag==1) {
+            console.log("red to gray");
             heart.style.color = 'gray'
             flag = 0;
-           
-            wish_list[product_id] = 0;
+            //product[product_id] = flag;
         }
-        localStorage.setItem('wish_list', JSON.stringify(wish_list));
-       
+        else if (flag==0) {
+            heart.style.color = 'red'
+            console.log("gray to red")
+            flag = 1;
+
+            //product[product_id] = 0;
+        }
     }
+
+
+</script>
+
+<script>
     function showHeartColor() {
         var product_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        var product = {};
+        product = '{{wishlist_prod|safe}}';
 
-        if (localStorage.getItem('wish_list') == null) {
+        if (product == null) {
 
         }
         else {
-            wish_list = JSON.parse(localStorage.getItem('wish_list'));
-           
+
             var heart = document.getElementById('wishlist');
+            var i = 0;
 
-
-            if (product_id in wish_list) {
-
-                if (wish_list[product_id] == 1) {
-                    heart.style.color = 'red'
-                }
-                else {
-                    heart.style.color = 'gray'
+            for (i = 0; i < product.length; i++) {
+                if (product_id == product[i]) {
+                    heart.style.color = 'red';
                 }
 
-            } else {
-                heart.style.color = 'gray'
             }
+
         }
     }
 
 </script>
+
+<script>
+    $(document).on('submit', '#wishlist_form', function (event) {
+
+        event.preventDefault();
+
+        console.log("wishlist Form submitted!")
+        $.ajax({
+            type: 'POST',
+            url: '/productDetail/{{current_product_id}}',
+            data: {
+                formtype: "wishlist",
+                flag : flag,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+
+            success: function (response) {
+
+                if(flag == '1'){
+                alert("Product added to wishlist successfully");}
+                else{
+                    alert("Product removed from wishlist successfully");   
+                }
+                
+            }
+        });
+    })
+</script>
+
+
 
 <div class="bg-modal" id="myform">
     <div class="modal-content">

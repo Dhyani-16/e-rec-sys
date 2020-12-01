@@ -100,3 +100,11 @@ class UsersQuery(models.Model):
         def __str__(self):
             return f"{self.query_user_id} Has Query Regarding {self.query_product_id}"
         
+class Wishlist(models.Model):
+    wishlist_user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    wishlist_product_id = models.ForeignKey(Product_Detail,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.wishlist_product_id} product Has been added By {self.wishlist_user_id}"
+
+        

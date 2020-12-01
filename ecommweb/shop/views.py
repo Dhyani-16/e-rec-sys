@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Product_Detail,Order_detail,Rating_Detail,Product_Review,UsersQuery
+from .models import Product_Detail,Order_detail,Rating_Detail,Product_Review,UsersQuery, Wishlist
 from math import ceil
 from Authentication.models import Profile
 from django.db.models import Q
 from django.contrib import messages
+from json import dumps
+#from django.utils import simplejson
 
 # Create your views here.
 
@@ -44,7 +46,20 @@ def productPreview(request,product_id):
     questions = UsersQuery.objects.all()[:3]
     
     reviews = Product_Review.objects.filter(review_product_id=product_id)
-    context = {'current_product_id' : product_id, 'review' : reviews, 'products' : products,'questions':questions}
+
+    field='body'
+
+    wishlist_prod = Wishlist.objects.filter(wishlist_user_id=request.user).values_list('wishlist_product_id', flat=True)[:]
+    #.get(pk=1)
+
+    dict = {}
+    for i in wishlist_prod:
+        dict[i]=1
+        
+    context = {'current_product_id' : product_id, 'review' : reviews, 'products' : products,
+    'questions':questions, 'wishlist_prod' : list(dict.keys())
+    }
+    
     if request.method=="POST":
         
         print("Product id",products)
@@ -80,8 +95,20 @@ def productPreview(request,product_id):
                 query_user_id = request.user,
                 question=q,answer="",likes=0  )
 
+        elif request.POST['formtype'] == "wishlist":
+            x=int(request.POST['flag'])
+            print("x:",x)
+            
+            if x==1:
+                Wishlist.objects.create(
+                    wishlist_user_id = request.user,
+                    wishlist_product_id= product_id,
+                    #rating = rating
+                )
 
-
+            else:
+                wishlist = Wishlist.objects.get(wishlist_user_id=request.user, wishlist_product_id=product_id)
+                wishlist.delete()
    
     return render(request,'productPreview.html' , context=context)
 
