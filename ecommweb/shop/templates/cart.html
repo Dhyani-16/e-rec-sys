@@ -52,6 +52,10 @@
 
 </div>
 
+<form id="form_place" method='post'>{% csrf_token %}
+     <button class="btn btn-info" type="submit" name="submit" id="submit" style="margin-left:20px;">Place Order</button>
+ </form>
+
 <div  style="margin-top: 50px;margin-left: 20px;">
     <h4>Delivery Details </h4>
 
@@ -259,7 +263,38 @@ for(var x in cart){
 billing_html = `<h3>Total Billing Amount : <b id="totalbillingamount" >${total_bill} </b></h3>`;
 $(billing_html).appendTo($('#carttable'))
 
+$("#form_place").on('submit', function(event) {
+      event.preventDefault(); 
+      let counter =1;
+      let amount = 0;
 
+      for(var x in cart){
+
+        let quantity = cart[x][0];
+        let name = cart[x][1];
+        let price = cart[x][2];
+
+        amount += quantity*price;
+        counter++;
+      }
+
+      alert(amount);
+       //var amount = '{{ amount }}';
+       $.ajax({
+           type: "POST",
+           url: '/cart/',
+           data:{
+                 //formtype: "place",
+                 amount:amount, 
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+           },
+           datatype:'json',
+           success: function(data) {
+             if (data['success'])
+                alert("successfully")
+           }
+       }); 
+  });
 
 </script>
 {% endblock %}

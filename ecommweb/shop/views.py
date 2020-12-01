@@ -5,6 +5,7 @@ from math import ceil
 from Authentication.models import Profile
 from django.db.models import Q
 from django.contrib import messages
+from datetime import datetime
 
 # Create your views here.
 
@@ -25,8 +26,20 @@ def shopHome(request):
 def cart(request):
     if request.user.is_authenticated:
         user_profile = Profile.objects.get(user=request.user)
-        print(user_profile.default_address_value)    
-        return render(request,'cart.html',{'profile':user_profile,'defaultAdd':user_profile.default_address_value})
+        print(user_profile.default_address_value)  
+        context={'profile':user_profile,'defaultAdd':user_profile.default_address_value}
+        if request.method=="POST":
+            # if request.POST['formtype'] == "place":
+                
+                amount = request.POST['amount']
+                print(f"amount :{amount}")
+                Order_detail.objects.create(
+                    order_user_id=request.user,
+                    amount=amount,
+                    order_date=datetime.now(),
+                    delivery_date=datetime.now(),
+                )
+        return render(request,'cart.html',context=context)
 
     return redirect('LoginUSER')
 

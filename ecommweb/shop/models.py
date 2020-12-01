@@ -54,7 +54,7 @@ class Order_detail(models.Model):
     product_data = jsonfield.JSONField()
     
     def __str__(self):
-        return self.order_id
+        return str(self.order_id)
 
 class Rating_Detail(models.Model):
         rating_user_id = models.ForeignKey(User,on_delete=models.CASCADE, default='0')
