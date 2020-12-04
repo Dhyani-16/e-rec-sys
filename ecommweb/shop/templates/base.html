@@ -127,7 +127,7 @@
 
                         <div class="dropdown-menu pl-2" aria-labelledby="dropdownMenuButton1">
                             <b><a href="{% url 'Account' %}" role="button" class="btn btn-sm btn-warning ml-2 my-1">Account</a></b>
-                            <form action="{% url 'LogoutUSER' %}" method="post">
+                            <form action="{% url 'LogoutUSER' %}" method="post" id="logout_form">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-sm btn-dark ml-2 my-1">Logout</button>
                             </form>
@@ -176,6 +176,54 @@
             $(this).parents(".btn-group").find('.selection').val($(this).text());
 
         });
+
+
+        if (localStorage.getItem('cart') == null) {
+        var cart = {};
+        }
+        else {
+            cart = JSON.parse(localStorage.getItem('cart'));
+            document.getElementById("cart").innerHTML = Object.keys(cart).length;
+
+        }
+
+        $('#logout_form').on('submit',function (e) {
+
+            localStorage.removeItem('cart')
+            document.getElementById("cart").innerHTML = 0;
+            
+        })
+
+        function addToCart(url_name){
+
+            console.log("addToCart called ...")
+
+            if (localStorage.getItem('cart') == null) {
+                var cart1 = "{}";
+                }
+                else {
+                    cart1 = localStorage.getItem('cart');
+
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: url_name,
+                    data: {
+
+                        value:cart1,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+
+                    },
+
+                    success: function(response) {
+
+                    }
+                })
+                
+            document.getElementById("cart").innerHTML = Object.keys(cart).length;
+
+        }
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

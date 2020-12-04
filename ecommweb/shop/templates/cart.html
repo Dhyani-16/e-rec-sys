@@ -92,7 +92,7 @@
 
 
 //  get cart from localstorage
-if(localStorage.getItem('cart')==null){
+if((localStorage.getItem('cart')==null)||localStorage.getItem('cart')=="{}"){
     var cart = {};
     console.log("cart is empty")
 
@@ -143,10 +143,12 @@ function removeItemFromCart(id) {
     
   localStorage.setItem('cart', JSON.stringify(cart));
   
+  
   }
 
   
   console.log("Flag value : ",flag)
+  addToCart('/cart/')
   window.location = "{% url 'Cart' %}"
 }
 
@@ -155,6 +157,7 @@ function removeItemFromCart(id) {
 function clearCart() {
 
   localStorage.removeItem('cart');
+  addToCart('/cart/')
   window.location = "{% url 'Cart' %}"
   
 }
@@ -206,7 +209,7 @@ function resetQuantity(flag,id){
 
 
   localStorage.setItem('cart', JSON.stringify(cart));
-  
+  addToCart('/cart/')
 
 }
 

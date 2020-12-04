@@ -42,7 +42,8 @@ class Profile(models.Model):
     pincode2 = models.PositiveIntegerField( blank=True,default=111111)
 
     default_address_value = models.IntegerField(default=1)
-    
+    mycart = models.CharField(max_length=5000,blank=True,default="{}")
+
 
     def __str__(self):
         return self.user.username

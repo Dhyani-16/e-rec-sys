@@ -73,17 +73,23 @@
 {% endfor %} {% endblock %}
 
 {% block js %}
+
+{% if user.is_authenticated %}
+
 <script>
-   
-    if (localStorage.getItem('cart') == null) {
-        var cart = {};
-    }
-    else {
-       cart = JSON.parse(localStorage.getItem('cart'));
-        document.getElementById("cart").innerHTML = Object.keys(cart).length;
 
+    if ((localStorage.getItem('cart')==null)||(localStorage.getItem('cart')=="{}")){
+        var cart = JSON.parse({{mycart|safe}});
+    }else{
+        cart = JSON.parse(localStorage.getItem('cart'));
     }
 
+    
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    document.getElementById("cart").innerHTML = Object.keys(cart).length;
+     
     $('.cart').click(function () {
 
         var idstr = this.id.toString();
@@ -96,8 +102,10 @@
         else {
             // fetch other details of product
             let pname = document.getElementById('pname'+idstr).innerText;
+            
             let pprice = document.getElementById('pprice'+idstr).innerText;
             let price = parseFloat(pprice.slice(1,pprice.length))
+            console.log(pprice , price)
 
             cart[idstr] = [1,pname,price];
             // cart = [quantity , product name , price]
@@ -113,9 +121,28 @@
 
         localStorage.setItem('cart', JSON.stringify(cart));
 
+        addToCart('/');
         alert("Product added to cart successfully")
-
     });
+    </script>
+
+{% else %}
+
+
+
+
+<script>
+
+$('.cart').click(function () {
+
+    window.location = "{% url 'LoginUSER' %}"
+
+});
+
+
 
 </script>
+
+{% endif %}
+
 {% endblock %}

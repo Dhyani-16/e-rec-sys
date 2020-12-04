@@ -627,6 +627,7 @@
     })
 </script>
 
+{% if user.is_authenticated %}
 
 <script>
     if (localStorage.getItem('cart') == null) {
@@ -662,11 +663,27 @@
 
         localStorage.setItem('cart', JSON.stringify(cart));
 
+        addToCart('/productDetail/{{current_product_id}}')
         alert("Product added to cart successfully")
 
     });
 
 </script>
+
+{% else %}
+<script>
+$('.cart').click(function () {
+
+    window.location = "{% url 'LoginUSER' %}"
+
+});
+
+
+
+</script>
+
+
+{% endif %}
 
 <script>
     //console.log('{{wishlist_prod|safe}}');
