@@ -26,7 +26,7 @@
                         <div class="card justify-content-center mt-2 ml-5" style="width: 16rem;height:25rem;">
                             <img class="card-img" id="image" src={{p.img1.url}} height="175px">
                             <div class="card-body">
-                                <h4 class="card-title cart" id="pname{{p.product_id}}">{{p.product_name}}</h4>
+                                <h4 class="card-title cart" id="pname{{p.product_id}}">{{p.product_name|truncatechars:15}}</h4>
                                 <h6 class="card-subtitle mb-2 text-muted">{{p.brand}}</h6>
                                 <p class="card-text">
                                     {{p.description|truncatechars:25}} </p>
