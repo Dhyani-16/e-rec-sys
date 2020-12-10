@@ -5,7 +5,7 @@ from math import ceil
 from Authentication.models import Profile
 from django.db.models import Q
 from django.contrib import messages
-from datetime import datetime
+from datetime import datetime,timedelta
 import json
 
 # Create your views here.
@@ -52,14 +52,16 @@ def cart(request):
                 saveCartForProfile(request.POST['value'],user_profile)
                 print(user_profile.mycart)
             
-            else:    
-                amount = request.POST['amount']
-                print(f"amount :{amount}")
+            else:   
+                amount = request.POST['amount'] 
+                product_ids = request.POST['product_ids']
+                print(f"amount :{amount},product_ids:{product_ids}")
                 Order_detail.objects.create(
                     order_user_id=request.user,
+                    product_ids=product_ids,
                     amount=amount,
                     order_date=datetime.now(),
-                    delivery_date=datetime.now(),
+                    delivery_date=datetime.now()+timedelta(days=5),
                 )
         return render(request,'cart.html',context=context)
 

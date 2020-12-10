@@ -270,18 +270,22 @@ $("#form_place").on('submit', function(event) {
       event.preventDefault(); 
       let counter =1;
       let amount = 0;
+      let pi = [];
 
       for(var x in cart){
 
         let quantity = cart[x][0];
         let name = cart[x][1];
         let price = cart[x][2];
+        let productId = cart[x][3];
+        
+        pi.push(x);
 
         amount += quantity*price;
         counter++;
       }
+      let proid = JSON.stringify(pi);
 
-      alert('your order is placed!');
        //var amount = '{{ amount }}';
        $.ajax({
            type: "POST",
@@ -289,6 +293,7 @@ $("#form_place").on('submit', function(event) {
            data:{
                  //formtype: "place",
                  amount:amount, 
+                 product_ids:proid, 
                 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
            },
            datatype:'json',
@@ -297,6 +302,11 @@ $("#form_place").on('submit', function(event) {
                 alert("successfully")
            }
        }); 
+      alert('your order is placed!');
+      
+      localStorage.removeItem('cart');
+      addToCart('/cart/')
+      window.location = "{% url 'Cart' %}"
   });
 
 </script>
