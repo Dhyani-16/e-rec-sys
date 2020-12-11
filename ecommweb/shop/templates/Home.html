@@ -6,7 +6,10 @@
 {% for product,range,nslides in AllProds %}
 
 <div class="container">
-    <h2 class="mt-4">{{product.0.category}}</h2>
+    <div class="row mt-4">
+    <h2>{{product.0.category}}</h2>
+    <a href="category/{{product.0.category}}" class="btn btn-warning mt-2" style="width:100px;margin-left: auto;margin-right: 10%;">View all</a>
+    </div>
 </div>
 <div id="carouselExampleIndicators{{forloop.counter}}" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">

@@ -28,7 +28,7 @@ def shopHome(request):
     # print(catProds)
     cats = {item['category'] for item in catProds} #Getting the each obj category and store it in the set to get only unique categories
     for cat in cats:
-        p = Product_Detail.objects.filter(category = cat) #it'll return the list of objects as requested.
+        p = Product_Detail.objects.filter(category = cat)[:15] #it'll return the list of objects as requested.
         l = len(p)
         nslides = l//3 + ceil((l/3)-(l//3))
         allProducts.append([p, range(1, nslides), nslides])
@@ -45,7 +45,7 @@ def category(request,cat):
 
     prods = Product_Detail.objects.filter(category=cat)
 
-    return render(request, 'category.html', {'AllProds': prods,'category':cat})
+    return render(request, 'category.html', {'AllProds': prods,'category':cat,'totalProds':len(prods)})
 
 def cart(request):
     if request.user.is_authenticated:
@@ -167,7 +167,7 @@ def search(request):
         search = request.GET.get('search')
         product = Product_Detail.objects.all().filter(Q(product_name__icontains=search) | Q(description__icontains=search) | Q(brand__icontains=search))
 
-        context={'product':product,'search':search}
+        context={'product':product,'search':search,'totalProds':len(product)}
         return render(request, 'search.html',context=context)
         
     
