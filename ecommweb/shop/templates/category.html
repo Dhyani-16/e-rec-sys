@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{category}} {% endblock %}
+
+{% block body %}
+<div class="container">
+    <!-- <h1 style="text-align:center; text-decoration:underline;">Welcome To Our Website</h1> -->
+    <h2 style="text-align:center; font-weight:bold; color:green;" class="my-3 ml-3">Welcome to our website</h2>
+
+           <h3 class="m-5">{{category}}</h3>
+
+            {% for p in AllProds %}
+
+                        <div class="card mt-4 justify-content-center" style="width: 50rem;height:15rem;margin-left: auto;margin-right: auto;">
+
+
+                            <div class="card-body">
+                                <div class="row">
+
+                                <img class="card-img ml-2" src={{p.img1.url}} style="height: 175px;width: 175px;" >
+
+                                <div class="ml-5">
+                                <h4 class="card-t">{{p.product_name}}</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">{{p.brand}}</h6>
+                                <p class="card-text">
+                                    {{p.description|truncatechars:65}} </p>
+
+                                <div class="price text-success">
+                                    <h5 class="mt-1">{{p.price}} Rs.</h5>
+                                </div>
+                                <a href="#" id="{{p.product_id}}" class="btn btn-warning btn-sm mt-2 cart">Add to Cart</a>
+                                <a href="/productDetail/{{p.product_id}}" class="btn btn-info btn-sm mt-2 ml-3">View
+                                    Product</a>
+
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+            {% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block js%}
+
+<script>
+
+var x = '{{category}}';
+console.log(x);
+
+$('#Cats')[0].innerText = x;
+
+
+</script>
+
+
+{% endblock %}

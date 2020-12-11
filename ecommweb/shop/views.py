@@ -41,6 +41,12 @@ def saveCartForProfile(c,profile):
     profile.mycart = c
     profile.save()
 
+def category(request,cat):
+
+    prods = Product_Detail.objects.filter(category=cat)
+
+    return render(request, 'category.html', {'AllProds': prods,'category':cat})
+
 def cart(request):
     if request.user.is_authenticated:
         user_profile = Profile.objects.get(user=request.user)

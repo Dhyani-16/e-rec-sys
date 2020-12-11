@@ -98,12 +98,16 @@
 
                         <div class="btn-group">
                             <button class="btn dropdown-toggle" style="background-color:gainsboro;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             <span class="selection">Categories</span><span class="caret"></span>
+                             <span class="selection" id="Cats">Categories</span><span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a class="dropdown-item" href="#">All Categories</a></li>
-                                <li><a class="dropdown-item" href="#">T-shirts</a></li>
-                                <li><a class="dropdown-item" href="#">Saris</a></li>
+                                <li><a class="dropdown-item" href="{% url 'shopHome' %}">All Cats</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Category' 'Clothing' %}">Clothing</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Category' 'Accessories' %}">Accessories</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Category' 'Electronics' %}">Electronics</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Category' 'Footwear' %}">Footwear</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Category' 'Grocery' %}">Grocery</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Category' 'Others' %}">Others</a></li>
                             </ul>
                         </div>
                         <input class="form-control mr-sm-2 pos" style="width:400px;" type="search" placeholder="Search for products" aria-label="search" id="search" name="search">
