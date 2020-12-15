@@ -35,12 +35,15 @@
                                     {{p.description|truncatechars:25}} </p>
 
                                 <div class="price text-success">
-                                    <h5 class="mt-1" id="pprice{{p.product_id}}">₹ {{p.price}}</h5>
+                                    <h5 class="mt-1" id="pprice{{p.product_id}}">₹ {{p.price}}</h5>                                    
+                                </div>
+                                <div>
                                 </div>
                                 <button id="{{p.product_id}}" class="btn btn-warning btn-sm mt-2 cart"
                                     onclick="window.location.reload();">Add to Cart</button>
                                 <a href="/productDetail/{{p.product_id}}" class="btn btn-info btn-sm mt-2 ml-3">View
                                     Product</a>
+                                <h5 class="mt-1" id="pquantity{{p.product_id}}" style='opacity:0;'>{{p.quantity}}</h5>
                             </div>
                         </div>
                     </div>
@@ -108,10 +111,14 @@
             
             let pprice = document.getElementById('pprice'+idstr).innerText;
             let price = parseFloat(pprice.slice(1,pprice.length))
+
+            let pquantity = document.getElementById('pquantity'+idstr).innerText;
+            let quantity = parseInt(pquantity);
             console.log(pprice , price)
 
-            cart[idstr] = [1,pname,price,idstr];
+            cart[idstr] = [1,pname,price,idstr, quantity];
             // cart = [quantity , product name , price]
+           
 
         }
         //var x=document.getElementById("name").innerHTML;

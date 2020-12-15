@@ -651,8 +651,9 @@
             let pname = document.getElementById('pname' + idstr).innerText;
             let pprice = document.getElementById('pprice' + idstr).innerText;
             let price = parseFloat(pprice.slice(1, pprice.length))
+            let pqnty = {{products.quantity}}
+            cart[idstr] = [1, pname, price,idstr, pqnty];
 
-            cart[idstr] = [1, pname, price];
         }
 
 

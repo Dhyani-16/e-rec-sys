@@ -271,6 +271,8 @@ $("#form_place").on('submit', function(event) {
       let counter =1;
       let amount = 0;
       let pi = [];
+      let pq = [];
+      let flag =0; 
 
       for(var x in cart){
 
@@ -278,8 +280,14 @@ $("#form_place").on('submit', function(event) {
         let name = cart[x][1];
         let price = cart[x][2];
         let productId = cart[x][3];
+        let productQuantity = cart[x][4];
         
         pi.push(x);
+        pq.push(productQuantity);
+        if(quantity>productQuantity){
+          alert(name+' is OUT OF STOCK!');
+          flag=1;
+        }
 
         amount += quantity*price;
         counter++;
@@ -287,26 +295,28 @@ $("#form_place").on('submit', function(event) {
       let proid = JSON.stringify(pi);
 
        //var amount = '{{ amount }}';
-       $.ajax({
-           type: "POST",
-           url: '/cart/',
-           data:{
-                 //formtype: "place",
-                 amount:amount, 
-                 product_ids:proid, 
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-           },
-           datatype:'json',
-           success: function(data) {
-             if (data['success'])
-                alert("successfully")
-           }
-       }); 
-      alert('your order is placed!');
-      
-      localStorage.removeItem('cart');
-      addToCart('/cart/')
-      window.location = "{% url 'Cart' %}"
+      if(flag==0){
+        $.ajax({
+            type: "POST",
+            url: '/cart/',
+            data:{
+                  //formtype: "place",
+                  amount:amount, 
+                  product_ids:proid, 
+                  'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            datatype:'json',
+            success: function(data) {
+              if (data['success'])
+                  alert("successfully")
+            }
+        }); 
+        alert('your order is placed!');
+        
+        localStorage.removeItem('cart');
+        addToCart('/cart/')
+        window.location = "{% url 'Cart' %}"
+      }
   });
 
 </script>
