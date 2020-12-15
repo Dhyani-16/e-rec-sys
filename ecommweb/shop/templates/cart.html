@@ -272,6 +272,7 @@ $("#form_place").on('submit', function(event) {
       let amount = 0;
       let pi = [];
       let pq = [];
+      let q = [];
       let flag =0; 
 
       for(var x in cart){
@@ -283,6 +284,7 @@ $("#form_place").on('submit', function(event) {
         let productQuantity = cart[x][4];
         
         pi.push(x);
+        q.push(quantity);
         pq.push(productQuantity);
         if(quantity>productQuantity){
           alert(name+' is OUT OF STOCK!');
@@ -292,7 +294,8 @@ $("#form_place").on('submit', function(event) {
         amount += quantity*price;
         counter++;
       }
-      let proid = JSON.stringify(pi);
+      let proId = JSON.stringify(pi);
+      let quantity = JSON.stringify(q);
 
        //var amount = '{{ amount }}';
       if(flag==0){
@@ -302,7 +305,8 @@ $("#form_place").on('submit', function(event) {
             data:{
                   //formtype: "place",
                   amount:amount, 
-                  product_ids:proid, 
+                  product_ids:proId,
+                  quantity:quantity, 
                   'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
             },
             datatype:'json',

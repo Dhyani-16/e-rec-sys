@@ -60,8 +60,15 @@ def cart(request):
             
             else:   
                 amount = request.POST['amount'] 
-                product_ids = request.POST['product_ids']
+                pi = request.POST['product_ids']
+                product_ids = json.loads(pi)
+                q = request.POST['quantity']
+                qty = json.loads(q)
                 print(f"amount :{amount},product_ids:{product_ids}")
+                print(qty)
+
+                
+
                 Order_detail.objects.create(
                     order_user_id=request.user,
                     product_ids=product_ids,
@@ -69,6 +76,13 @@ def cart(request):
                     order_date=datetime.now(),
                     delivery_date=datetime.now()+timedelta(days=5),
                 )
+                count=0
+                for i in product_ids:
+                    product = Product_Detail.objects.get(product_id=i)
+                    # print(product.quantity)
+                    product.quantity = product.quantity - qty[count]
+                    product.save()
+                    count= count+1
         return render(request,'cart.html',context=context)
 
     return redirect('LoginUSER')
