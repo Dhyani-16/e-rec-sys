@@ -17,6 +17,7 @@
         <div class="container " style="margin-left: 35%; text-align: center; margin-top: 15%;">
             <div class="card bg-light" style="max-width: 30rem;">
                 <div class="card-body">
+                <h4 style="color:red;">{{error}}</h4>
                     <h1 class="card-title">Enter OTP for Registeration</h1>
                     <div>
                         <strong>OTP : </strong>
@@ -25,7 +26,11 @@
 
                     </div>
                 </div>
-                <button class="btn btn-primary" style="margin-top: 10px;" type="submit">Submit</button>
+                <div class="row ml-4">
+                    <button class="btn btn-primary btn-sm" style="margin-top: 10px;height: 30px; text-align: center;" onclick="window.history.go(-1); return false;">Back</button>
+                    <button class="btn btn-success mb-2" style="margin-top: 10px;margin-left: auto;margin-right: 45%;" type="submit">Submit</button>
+                
+                </div>
             </div>
         </div>
     </form>

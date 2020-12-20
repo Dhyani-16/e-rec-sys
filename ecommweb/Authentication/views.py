@@ -20,7 +20,7 @@ def otpGenerator():
     return int(otp)
 
 def verify_otp(request):
-
+    
     
     if request.method=="POST":
         
@@ -50,7 +50,7 @@ def verify_otp(request):
             city = request.session['city'],
             state = request.session['state'],
             pincode = request.session['pincode'])
-                
+            
             print('profile form saved')
             login(request,user)
             
@@ -60,13 +60,13 @@ def verify_otp(request):
 
         else:
             print('user not saved')
-            return render(request, 'SignUp.html',{'profileform':UserProfileForm(), 'error':'OTP didnot match'})
+            return render(request, 'verify_otp.html',{ 'error':'OTP didnot match'})
 
     return render(request,'verify_otp.html')
 
 def SignupUSER(request):
     if(request.method=="GET"):
-        return render(request,"SignUp.html",{'profileform':UserProfileForm()})
+        return render(request,"SignUp.html",{'fname':'demo','profileform':UserProfileForm()})
     else:
         #Create a user
         #First check both passwords matched
@@ -117,7 +117,7 @@ def SignupUSER(request):
                 except IntegrityError:
                     return render(request, 'SignUp.html',{'profileform':UserProfileForm(),'error':'Username already taken'})
         else:
-            return render(request,'SignUp.html',{'profileform':UserProfileForm(),'error':"Passwords didn't match."})
+            return render(request,'SignUp.html',{'fname':'demo','profileform':UserProfileForm(),'error':"Passwords didn't match."})
 
 def LoginUSER(request):
     if (request.method == 'GET'):
