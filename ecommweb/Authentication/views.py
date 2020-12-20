@@ -60,7 +60,7 @@ def verify_otp(request):
 
         else:
             print('user not saved')
-            return render(request, 'SignUp.html',{'error':'OTP didnot match'})
+            return render(request, 'SignUp.html',{'profileform':UserProfileForm(), 'error':'OTP didnot match'})
 
     return render(request,'verify_otp.html')
 
@@ -75,7 +75,7 @@ def SignupUSER(request):
             #Then check proper username..1)alphabets+nums=alphanums 2)all nums not and not any special chars. 3)length not more than 15 --means only alphabets or alpha+nums valid.
             if (not request.POST['UserName'].isalnum() or request.POST['UserName'].isdecimal() or len(request.POST['UserName'])>15):
                 print("error")
-                return render(request, 'SignUp.html',{'error':"Username should not contain any special characters and length must be less than 15 characters"})
+                return render(request, 'SignUp.html',{'profileform':UserProfileForm(), 'error':"Username should not contain any special characters and length must be less than 15 characters"})
 
             #If proper then go
             else:
