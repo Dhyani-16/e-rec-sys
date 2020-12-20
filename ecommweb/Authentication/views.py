@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
 from .forms import UserProfileForm
@@ -6,6 +7,62 @@ from django.contrib.auth import login,logout,authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from .models import Profile
+from django.core.mail import send_mail
+import random
+from django.http import HttpResponse
+
+def otpGenerator():
+    otp=""
+
+    for i in range(6):
+      x=random.randint(0,9)
+      otp +=  str(x)  
+    return int(otp)
+
+def verify_otp(request):
+
+    
+    if request.method=="POST":
+        
+        user_otp = request.POST['otp']
+        print("user otp : ",user_otp)
+        sys_otp = request.session['sys_otp']
+        print("sys_otp : ",sys_otp)
+        
+        if int(user_otp) == sys_otp:
+            print("user saved")  
+                        
+            user = User.objects.create_user(username=request.session['username'],password=request.session['password'],email=request.session['email'])
+            user.save()
+            print("user details saved")
+            del request.session['username']
+            del request.session['password']
+            del request.session['email']
+            del request.session['sys_otp']
+            
+            Profile.objects.create(
+            user = user,
+            first_name = request.session['first_name'],
+            #print("user fn : ",Profile.first_name)
+            last_name = request.session['last_name'],
+            contact_no = request.session['contact_no'],
+            address1 = request.session['address1'],
+            city = request.session['city'],
+            state = request.session['state'],
+            pincode = request.session['pincode'])
+                
+            print('profile form saved')
+            login(request,user)
+            
+            return redirect("shopHome")
+            
+# Here both user obj and profile obj can be useful while accessing their fields via .name1 in html file    
+
+        else:
+            print('user not saved')
+            return render(request, 'SignUp.html',{'error':'OTP didnot match'})
+
+    return render(request,'verify_otp.html')
 
 def SignupUSER(request):
     if(request.method=="GET"):
@@ -17,27 +74,45 @@ def SignupUSER(request):
 
             #Then check proper username..1)alphabets+nums=alphanums 2)all nums not and not any special chars. 3)length not more than 15 --means only alphabets or alpha+nums valid.
             if (not request.POST['UserName'].isalnum() or request.POST['UserName'].isdecimal() or len(request.POST['UserName'])>15):
+                print("error")
                 return render(request, 'SignUp.html',{'error':"Username should not contain any special characters and length must be less than 15 characters"})
 
             #If proper then go
             else:
                 #Then See this username used by someone?
+        
                 try:
-                    profile_form = UserProfileForm(request.POST)
-                    # Here name1 = req.post[name2]. in which name1 can be anything and used when accessing User detail in html file,and name2 must be same as provided by default styling of django user signin in Users model (for lastname = last_name,Email=email)
-               
-                    user = User.objects.create_user(username=request.POST['UserName'],password=request.POST['PassWord1'],email=request.POST['email'])
-                    user.save()
                     
-                    if profile_form.is_valid():
-                        profile = profile_form.save(commit=False)
-                        profile.user = user
-                        profile.save()
+                    if not User.objects.filter(username=request.POST['UserName']).exists():
+                        
+                        #send_mail
+                        sys_otp = otpGenerator()
+                        subject = 'VERIFY YOUR EMAIL'
+                        message = f'{sys_otp} is the OTP to register.'
+                        print(message)
+                        email_from = settings.EMAIL_HOST_USER 
+                        recipient_list = [request.POST['email'], settings.EMAIL_HOST_USER] 
+                        send_mail(subject, message, email_from, recipient_list) 
 
-                    login(request,user)
-                    return redirect('shopHome')
-    
-                    # Here both user obj and profile obj can be useful while accessing their fields via .name1 in html file    
+                        request.session['username'] = request.POST['UserName']
+                        request.session['password'] = request.POST['PassWord1']
+                        request.session['email'] = request.POST['email']
+                        request.session['sys_otp'] = sys_otp
+                        request.session['first_name'] = request.POST['first_name']
+                        request.session['last_name'] = request.POST['last_name']
+                        request.session['contact_no'] = request.POST['contact_no']
+                        request.session['address1'] = request.POST['address1']
+                        request.session['city'] = request.POST['city']
+                        request.session['state'] = request.POST['state']
+                        request.session['pincode'] = request.POST['pincode']
+                        
+                        return redirect('verify_otp')  
+                        profile_form = UserProfileForm(request.POST)
+# Here name1 = req.post[name2]. in which name1 can be anything and used when accessing User detail in html file,and name2 must be same as provided by default styling of django user signin in Users model (for lastname = last_name,Email=email)
+                                                    
+                    else:
+                        return render(request,'SignUp.html',{'profileform':UserProfileForm(),'error':'Username already taken'})
+
 
                 except IntegrityError:
                     return render(request, 'SignUp.html',{'profileform':UserProfileForm(),'error':'Username already taken'})

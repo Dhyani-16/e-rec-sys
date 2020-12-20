@@ -10,6 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+#FOR GMAIL
+import socket
+
+STATIC_URL = '/static/'
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ecomweb8@gmail.com'     #sender mail id
+EMAIL_HOST_PASSWORD = 'asdjkl8.'                    #password associated with above email-id
+EMAIL_PORT = 587
+socket.getaddrinfo('localhost', 587)
+
+
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

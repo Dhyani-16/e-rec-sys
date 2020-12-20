@@ -15,5 +15,7 @@ urlpatterns = [
 
     path("set_default_address/",views.set_default_address,name="set_default_address"),
     path("deleteAd/<int:objId>/delete",views.deleteAd,name="deleteAd"),
+    path('verify_otp', views.verify_otp, name='verify_otp'),
+   
     
 ]
